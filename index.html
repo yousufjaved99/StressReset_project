@@ -4,443 +4,884 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>StressReset</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --sunset-deep:#7c2d12;
-  --sunset-mid:#c2410c;
-  --sunset-bright:#ea580c;
-  --coral:#f97316;
-  --amber:#f59e0b;
-  --peach:#fed7aa;
-  --peach-light:#fff7ed;
-  --rose:#fb7185;
-  --surface:#fffbf7;
-  --surface2:#fff1e6;
+  --deep:#1a0a00;
+  --rust:#b83a0e;
+  --orange:#e85d1a;
+  --amber:#f0930a;
+  --peach:#f9c07a;
+  --cream:#fdf6ee;
+  --cream2:#f9ede0;
   --white:#ffffff;
-  --text-primary:#3b1a08;
-  --text-secondary:#78461e;
-  --text-tertiary:#b07c52;
-  --border:rgba(234,88,12,0.13);
-  --border-strong:rgba(234,88,12,0.28);
-  --radius-sm:10px;
-  --radius-md:14px;
-  --radius-lg:20px;
-  --radius-xl:28px;
-  --shadow-sm:0 2px 10px rgba(194,65,12,0.09);
-  --shadow-md:0 4px 22px rgba(194,65,12,0.14);
-  --shadow-lg:0 8px 42px rgba(124,45,18,0.18);
+  --text:#1a0a00;
+  --text2:#6b3d1e;
+  --text3:#a06040;
+  --border:rgba(184,58,14,0.12);
+  --border2:rgba(184,58,14,0.24);
+  --r-sm:10px;
+  --r-md:16px;
+  --r-lg:24px;
+  --r-xl:32px;
+  --sh:0 2px 14px rgba(184,58,14,0.10);
+  --sh-md:0 6px 28px rgba(184,58,14,0.16);
+  --sh-lg:0 12px 50px rgba(90,20,0,0.20);
 }
 html{scroll-behavior:smooth;}
-body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surface);color:var(--text-primary);min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
 
-/* ── NAVBAR ── */
-.navbar{position:sticky;top:0;z-index:100;background:rgba(255,251,247,0.84);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid var(--border);padding:0 max(1.5rem,calc(50% - 360px));display:flex;align-items:center;justify-content:space-between;height:52px;}
-.nav-brand{font-size:17px;font-weight:700;color:var(--sunset-bright);letter-spacing:-0.4px;display:flex;align-items:center;gap:8px;}
-.nav-brand-glow{width:9px;height:9px;background:linear-gradient(135deg,var(--amber),var(--coral));border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,0.5);}
-.nav-links{display:flex;gap:3px;background:rgba(234,88,12,0.08);border-radius:99px;padding:3px;}
-.nav-link{padding:6px 16px;font-size:13px;font-weight:500;border-radius:99px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;}
-.nav-link.active{background:var(--white);color:var(--sunset-bright);box-shadow:0 1px 6px rgba(234,88,12,0.2);}
+/* NAVBAR */
+.navbar{
+  position:sticky;top:0;z-index:200;
+  background:rgba(253,246,238,0.88);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  padding:0 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  height:58px;
+}
+.nav-brand{
+  font-family:'Fraunces',serif;
+  font-size:20px;font-weight:700;
+  color:var(--rust);
+  display:flex;align-items:center;gap:9px;
+  letter-spacing:-0.3px;
+}
+.brand-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(135deg,var(--amber),var(--orange));
+  box-shadow:0 0 10px rgba(240,147,10,0.55);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.7;}}
+.nav-links{
+  display:flex;gap:2px;
+  background:rgba(232,93,26,0.08);
+  border-radius:99px;padding:3px;
+}
+.nav-link{
+  padding:7px 18px;font-size:13.5px;font-weight:500;
+  border-radius:99px;border:none;background:transparent;
+  color:var(--text2);cursor:pointer;transition:all 0.2s;
+}
+.nav-link.active{
+  background:var(--white);color:var(--rust);
+  box-shadow:0 1px 8px rgba(184,58,14,0.18);
+}
 
-/* ── PAGE TRANSITIONS ── */
+/* PAGE SYSTEM */
 .page{display:none;animation:fadeUp 0.35s ease;}
 .page.active{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* ══════════════════════════════
-   ABOUT PAGE
-══════════════════════════════ */
-.about-hero{
-  background:linear-gradient(150deg,#431407 0%,#9a3412 40%,#c2410c 70%,#ea580c 100%);
-  padding:5.5rem max(1.5rem,calc(50% - 360px)) 4.5rem;
+/* HERO */
+.hero{
+  background:linear-gradient(145deg,#2a0a00 0%,#7a1f06 35%,#b83a0e 65%,#e85d1a 100%);
+  padding:7rem 5vw 6rem;
+  position:relative;overflow:hidden;
+  min-height:520px;display:flex;align-items:center;
+}
+.hero::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(240,147,10,0.28) 0%,transparent 65%);
+  border-radius:50%;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-100px;left:-50px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(232,93,26,0.18) 0%,transparent 65%);
+  border-radius:50%;
+}
+.hero-inner{max-width:620px;position:relative;z-index:1;}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.22);
+  color:rgba(255,255,255,0.88);
+  font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  padding:6px 15px;border-radius:99px;margin-bottom:1.75rem;
+}
+.pill-dot{width:6px;height:6px;background:#fbbf24;border-radius:50%;box-shadow:0 0 6px #fbbf24;}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(44px,6vw,68px);
+  font-weight:700;color:white;
+  line-height:1.05;letter-spacing:-2px;
+  margin-bottom:1.5rem;
+}
+.hero h1 em{
+  font-style:italic;font-weight:300;
+  background:linear-gradient(90deg,#fed7aa,#fbbf24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:17px;color:rgba(255,255,255,0.72);
+  line-height:1.75;max-width:480px;font-weight:300;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  margin-top:2.5rem;
+  padding:14px 30px;
+  background:white;color:var(--rust);
+  font-size:15px;font-weight:600;
+  border-radius:99px;border:none;cursor:pointer;
+  box-shadow:0 4px 22px rgba(0,0,0,0.22);
+  transition:all 0.22s;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.28);}
+.hero-cta-arrow{font-size:18px;transition:transform 0.2s;}
+.hero-cta:hover .hero-cta-arrow{transform:translateX(4px);}
+
+/* SHARED SECTION STYLES */
+.section{padding:5rem 5vw;}
+.section-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--orange);margin-bottom:8px;
+}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(28px,3.5vw,38px);font-weight:600;
+  color:var(--text);letter-spacing:-1px;
+  line-height:1.15;margin-bottom:12px;
+}
+.section-sub{
+  font-size:16px;color:var(--text2);
+  line-height:1.75;font-weight:300;
+  max-width:600px;margin-bottom:2.5rem;
+}
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border2),transparent);
+  margin:3rem 0;
+}
+
+/* ABOUT - WELCOME BLOCK */
+.welcome-grid{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:3.5rem;align-items:start;
+  margin-bottom:4rem;
+}
+@media(max-width:720px){.welcome-grid{grid-template-columns:1fr;}}
+.welcome-text p{
+  font-size:15.5px;color:var(--text2);line-height:1.8;
+  font-weight:300;
+}
+.welcome-text p+p{margin-top:14px;}
+.welcome-card{
+  background:linear-gradient(150deg,#fff7ed,#ffedd5);
+  border:1px solid rgba(232,93,26,0.15);
+  border-radius:var(--r-xl);padding:2rem;
+  box-shadow:var(--sh-md);
+}
+.wc-title{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--orange);margin-bottom:1.25rem;
+}
+.wc-row{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start;}
+.wc-row:last-child{margin-bottom:0;}
+.wc-icon{
+  width:36px;height:36px;border-radius:11px;
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;
+}
+.wc-info h4{font-size:14px;font-weight:600;margin-bottom:3px;color:var(--text);}
+.wc-info p{font-size:13px;color:var(--text2);line-height:1.6;font-weight:300;}
+
+/* SCIENCE CARDS */
+.sci-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;margin-bottom:2.5rem;
+}
+.sci-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.5rem;
+  box-shadow:var(--sh);transition:transform 0.2s,box-shadow 0.2s;
+}
+.sci-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.sci-icon{
+  width:44px;height:44px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;margin-bottom:13px;
+}
+.ic-o{background:linear-gradient(135deg,#ffedd5,#fed7aa);}
+.ic-a{background:linear-gradient(135deg,#fef3c7,#fde68a);}
+.ic-r{background:linear-gradient(135deg,#ffe4e6,#fecdd3);}
+.ic-p{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
+.sci-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.sci-card p{font-size:13.5px;color:var(--text2);line-height:1.65;font-weight:300;}
+.sci-card .ref-link{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:10px;font-size:12px;font-weight:600;
+  color:var(--orange);text-decoration:none;
+  border-bottom:1px solid rgba(232,93,26,0.25);
+  padding-bottom:1px;transition:color 0.15s;
+}
+.sci-card .ref-link:hover{color:var(--rust);}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.tag{
+  font-size:11px;font-weight:600;padding:3px 10px;
+  border-radius:99px;
+}
+.tag-o{background:#ffedd5;color:#c2410c;}
+.tag-a{background:#fef3c7;color:#92400e;}
+.tag-r{background:#ffe4e6;color:#be123c;}
+
+/* CYCLE */
+.cycle-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:2rem;
+  box-shadow:var(--sh);
+}
+.cycle-row{
+  display:flex;gap:15px;align-items:flex-start;
+  padding:14px 16px;border-radius:var(--r-md);
+  background:var(--cream);margin-bottom:6px;
+}
+.cycle-row.danger{background:#fff1f2;border:1px solid #fecdd3;}
+.cycle-num{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  color:white;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cycle-row.danger .cycle-num{background:linear-gradient(135deg,#f43f5e,#fb7185);}
+.cycle-body{font-size:14px;line-height:1.65;color:var(--text);}
+.cycle-row.danger .cycle-body{color:#9f1239;}
+.cycle-arrow{text-align:center;color:var(--text3);font-size:12px;margin:2px 0;}
+
+/* BENEFITS */
+.stat-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  margin:2.5rem 0;
+}
+@media(max-width:560px){.stat-row{grid-template-columns:1fr;}}
+.stat{
+  border-radius:var(--r-lg);padding:1.5rem;
+  color:white;box-shadow:0 4px 20px rgba(184,58,14,0.28);
+  text-align:center;
+}
+.stat:nth-child(1){background:linear-gradient(145deg,var(--rust),var(--orange));}
+.stat:nth-child(2){background:linear-gradient(145deg,var(--amber),#f97316);}
+.stat:nth-child(3){background:linear-gradient(145deg,#e11d48,#fb7185);}
+.stat-num{font-family:'Fraunces',serif;font-size:36px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:6px;}
+.stat-desc{font-size:12px;opacity:0.85;line-height:1.45;font-weight:300;}
+
+.feature-list{display:flex;flex-direction:column;gap:14px;margin:1.5rem 0;}
+.feature{
+  display:flex;gap:1.5rem;align-items:flex-start;
+  padding:1.5rem;background:var(--white);
+  border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--sh);transition:transform 0.2s,box-shadow 0.2s;
+}
+.feature:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
+.fi{width:52px;height:52px;border-radius:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:23px;}
+.fi1{background:linear-gradient(135deg,#ffedd5,#fdba74);}
+.fi2{background:linear-gradient(135deg,#fef3c7,#fcd34d);}
+.fi3{background:linear-gradient(135deg,#ffe4e6,#fda4af);}
+.fi4{background:linear-gradient(135deg,#fff7ed,#fed7aa);}
+.fi5{background:linear-gradient(135deg,#fdf2f8,#f9a8d4);}
+.fi6{background:linear-gradient(135deg,#ecfdf5,#6ee7b7);}
+.feature h3{font-size:15px;font-weight:600;margin-bottom:5px;color:var(--text);}
+.feature p{font-size:13.5px;color:var(--text2);line-height:1.65;font-weight:300;}
+
+.cta-block{
+  background:linear-gradient(145deg,#2a0a00,#7a1f06,#b83a0e);
+  border-radius:var(--r-xl);padding:3rem 2.5rem;
+  text-align:center;box-shadow:var(--sh-lg);margin-top:2.5rem;
+}
+.cta-block .section-label{color:rgba(255,255,255,0.45);}
+.cta-block h2{
+  font-family:'Fraunces',serif;
+  font-size:28px;color:white;font-weight:600;
+  letter-spacing:-0.5px;margin-bottom:10px;
+}
+.cta-block p{font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:2rem;font-weight:300;}
+.cta-btn{
+  background:white;color:var(--rust);border:none;
+  padding:14px 34px;border-radius:99px;
+  font-size:15px;font-weight:600;cursor:pointer;
+  box-shadow:0 4px 18px rgba(0,0,0,0.2);
+  transition:all 0.22s;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,0,0,0.28);}
+
+/* ==========================================
+   APP PAGE
+   ========================================== */
+.app-hero{
+  background:linear-gradient(150deg,#2a0a00,#7a1f06,#b83a0e);
+  padding:3rem 5vw 2.5rem;
   position:relative;overflow:hidden;
 }
-.about-hero::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(251,146,60,0.35) 0%,transparent 65%);border-radius:50%;}
-.about-hero::after{content:'';position:absolute;bottom:-80px;left:-60px;width:360px;height:360px;background:radial-gradient(circle,rgba(245,158,11,0.2) 0%,transparent 65%);border-radius:50%;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.9);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:6px 14px;border-radius:99px;margin-bottom:1.5rem;position:relative;z-index:1;}
-.hero-eyebrow-dot{width:6px;height:6px;background:#fbbf24;border-radius:50%;box-shadow:0 0 6px #fbbf24;}
-.hero-title{font-size:clamp(38px,6vw,58px);font-weight:700;color:white;line-height:1.07;letter-spacing:-1.8px;margin-bottom:1.25rem;position:relative;z-index:1;}
-.hero-title em{font-style:normal;background:linear-gradient(90deg,#fed7aa,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{font-size:17px;color:rgba(255,255,255,0.76);line-height:1.7;max-width:500px;position:relative;z-index:1;font-weight:300;}
-.hero-cta{display:inline-block;margin-top:2rem;padding:13px 28px;background:white;color:var(--sunset-bright);font-size:15px;font-weight:600;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all 0.2s;position:relative;z-index:1;letter-spacing:-0.2px;}
-.hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,0.26);}
+.app-hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(240,147,10,0.2) 0%,transparent 70%);
+  border-radius:50%;
+}
+.app-hero h2{
+  font-family:'Fraunces',serif;
+  font-size:28px;font-weight:600;color:white;
+  letter-spacing:-0.5px;margin-bottom:5px;
+  position:relative;z-index:1;
+}
+.app-hero p{font-size:14px;color:rgba(255,255,255,0.6);font-weight:300;position:relative;z-index:1;}
 
-.about-body{padding:3.5rem max(1.5rem,calc(50% - 360px));}
+.app-body{padding:2rem 5vw 4rem;}
 
-.welcome-block{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;margin-bottom:3rem;}
-@media(max-width:620px){.welcome-block{grid-template-columns:1fr;}}
-.welcome-text .eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--coral);margin-bottom:8px;}
-.welcome-text h2{font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:-0.7px;line-height:1.18;margin-bottom:14px;}
-.welcome-text p{font-size:15px;color:var(--text-secondary);line-height:1.75;}
-.welcome-text p+p{margin-top:12px;}
-
-.welcome-card{background:linear-gradient(145deg,#fff7ed,#ffedd5);border:0.5px solid rgba(234,88,12,0.18);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-md);}
-.welcome-card-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);margin-bottom:1rem;}
-.wc-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
-.wc-row:last-child{margin-bottom:0;}
-.wc-icon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.wc-content h4{font-size:13.5px;font-weight:600;color:var(--text-primary);margin-bottom:2px;}
-.wc-content p{font-size:12.5px;color:var(--text-secondary);line-height:1.55;}
-
-.divider{height:0.5px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2.5rem 0;}
-
-.science-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--coral);margin-bottom:8px;}
-.science-section-h2{font-size:26px;font-weight:700;color:var(--text-primary);letter-spacing:-0.6px;margin-bottom:8px;}
-.science-section-sub{font-size:15px;color:var(--text-secondary);line-height:1.7;margin-bottom:1.75rem;}
-
-.sci-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:2rem;}
-.sci-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-sm);transition:transform 0.2s,box-shadow 0.2s;}
-.sci-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
-.sci-icon-wrap{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;}
-.ic-orange{background:linear-gradient(135deg,#ffedd5,#fed7aa);}
-.ic-amber{background:linear-gradient(135deg,#fef3c7,#fde68a);}
-.ic-rose{background:linear-gradient(135deg,#ffe4e6,#fecdd3);}
-.ic-peach{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
-.sci-card h3{font-size:14px;font-weight:600;color:var(--text-primary);letter-spacing:-0.2px;margin-bottom:6px;}
-.sci-card p{font-size:13px;color:var(--text-secondary);line-height:1.65;}
-.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
-.tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;}
-.tag-orange{background:#ffedd5;color:#c2410c;}
-.tag-amber{background:#fef3c7;color:#92400e;}
-.tag-rose{background:#ffe4e6;color:#be123c;}
-.tag-coral{background:#fff1f2;color:#e11d48;}
-
-.cycle-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-xl);padding:1.75rem;box-shadow:var(--shadow-sm);}
-.cycle-row{display:flex;align-items:flex-start;gap:14px;padding:12px 14px;border-radius:var(--radius-md);background:var(--surface);margin-bottom:5px;}
-.cycle-row:hover{background:var(--surface2);}
-.cycle-row.danger{background:#fff1f2;border:0.5px solid #fecdd3;}
-.cycle-row.danger:hover{background:#ffe4e6;}
-.cycle-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--amber));color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.cycle-row.danger .cycle-num{background:linear-gradient(135deg,#f43f5e,#fb7185);}
-.cycle-text{font-size:14px;color:var(--text-primary);line-height:1.6;}
-.cycle-row.danger .cycle-text{color:#9f1239;}
-.cycle-arrow{text-align:center;font-size:11px;color:var(--text-tertiary);margin:1px 0;}
-
-/* ══════════════════════════════
-   BENEFITS PAGE
-══════════════════════════════ */
-.benefits-hero{background:linear-gradient(155deg,#431407 0%,#7c2d12 45%,#b45309 100%);padding:4.5rem max(1.5rem,calc(50% - 360px)) 3.5rem;position:relative;overflow:hidden;}
-.benefits-hero::before{content:'';position:absolute;top:-80px;right:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(251,146,60,0.3) 0%,transparent 65%);border-radius:50%;}
-
-.benefits-body{padding:3rem max(1.5rem,calc(50% - 360px));}
-
-.stat-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:2rem 0;}
-.stat-card{border-radius:var(--radius-lg);padding:1.25rem 1rem;text-align:center;color:white;}
-.stat-card:nth-child(1){background:linear-gradient(145deg,var(--sunset-bright),var(--coral));}
-.stat-card:nth-child(2){background:linear-gradient(145deg,var(--amber),#f97316);}
-.stat-card:nth-child(3){background:linear-gradient(145deg,#e11d48,#fb7185);}
-.stat-card{box-shadow:0 4px 18px rgba(194,65,12,0.3);}
-.stat-num{font-size:32px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:5px;}
-.stat-desc{font-size:11.5px;opacity:0.85;line-height:1.4;}
-
-.feature-list{display:flex;flex-direction:column;gap:12px;margin:1.5rem 0;}
-.feature-item{display:flex;gap:1.25rem;padding:1.5rem;background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);transition:transform 0.2s,box-shadow 0.2s;}
-.feature-item:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);}
-.fi-icon{width:50px;height:50px;border-radius:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;}
-.fi-1{background:linear-gradient(135deg,#ffedd5,#fdba74);}
-.fi-2{background:linear-gradient(135deg,#fef3c7,#fcd34d);}
-.fi-3{background:linear-gradient(135deg,#ffe4e6,#fda4af);}
-.fi-4{background:linear-gradient(135deg,#fff7ed,#fed7aa);}
-.fi-5{background:linear-gradient(135deg,#fdf2f8,#f9a8d4);}
-.fi-6{background:linear-gradient(135deg,#ecfdf5,#6ee7b7);}
-.fi-content h3{font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:5px;letter-spacing:-0.2px;}
-.fi-content p{font-size:13.5px;color:var(--text-secondary);line-height:1.65;}
-
-.cta-block{background:linear-gradient(145deg,#431407,#9a3412,#c2410c);border-radius:var(--radius-xl);padding:2.25rem 2rem;text-align:center;box-shadow:var(--shadow-lg);margin-top:2rem;}
-.cta-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;}
-.cta-title{font-size:24px;font-weight:700;color:white;letter-spacing:-0.5px;margin-bottom:8px;}
-.cta-sub{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:1.75rem;line-height:1.6;}
-.cta-btn{background:white;color:var(--sunset-bright);border:none;padding:13px 32px;border-radius:99px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:all 0.2s;letter-spacing:-0.2px;}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.28);}
-
-/* ══════════════════════════════
-   STRESS RESET PAGE
-══════════════════════════════ */
-.app-hero{background:linear-gradient(150deg,#431407,#9a3412,#c2410c);padding:2.5rem max(1.5rem,calc(50% - 360px)) 2rem;position:relative;overflow:hidden;}
-.app-hero::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(251,146,60,0.22) 0%,transparent 70%);border-radius:50%;}
-.app-hero-inner{position:relative;z-index:1;}
-.app-hero h2{font-size:25px;font-weight:700;color:white;letter-spacing:-0.6px;margin-bottom:4px;}
-.app-hero p{font-size:14px;color:rgba(255,255,255,0.62);font-weight:300;}
-
-.app-body{padding:1.75rem max(1.5rem,calc(50% - 360px)) 3rem;}
-
-.sub-tabs{display:flex;gap:3px;background:rgba(234,88,12,0.09);border-radius:99px;padding:3px;margin-bottom:1.75rem;}
-.sub-tab{flex:1;padding:8px;font-size:13px;font-weight:500;text-align:center;border-radius:99px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;}
-.sub-tab.active{background:var(--white);color:var(--sunset-bright);box-shadow:0 1px 7px rgba(234,88,12,0.2);}
+.sub-tabs{
+  display:flex;gap:3px;
+  background:rgba(232,93,26,0.08);
+  border-radius:99px;padding:3px;margin-bottom:2rem;
+}
+.sub-tab{
+  flex:1;padding:9px;font-size:13.5px;font-weight:500;
+  text-align:center;border-radius:99px;border:none;
+  background:transparent;color:var(--text2);
+  cursor:pointer;transition:all 0.2s;
+}
+.sub-tab.active{
+  background:var(--white);color:var(--rust);
+  box-shadow:0 1px 8px rgba(184,58,14,0.2);
+}
 .subtab-pane{display:none;}
-.subtab-pane.active{display:block;animation:fadeUp 0.3s ease;}
+.subtab-pane.active{display:block;animation:fadeUp 0.28s ease;}
 
-/* progress bar */
-.prog-wrap{display:flex;align-items:center;gap:8px;margin-bottom:1.75rem;}
-.prog-seg{height:4px;flex:1;border-radius:99px;background:rgba(234,88,12,0.1);transition:background 0.35s;}
-.prog-seg.done{background:linear-gradient(90deg,var(--coral),var(--amber));}
-.prog-seg.cur{background:linear-gradient(90deg,var(--coral),var(--amber));opacity:0.45;}
-.prog-label{font-size:12px;color:var(--text-tertiary);white-space:nowrap;}
+/* PROGRESS */
+.prog-wrap{display:flex;align-items:center;gap:8px;margin-bottom:2rem;}
+.prog-seg{
+  height:4px;flex:1;border-radius:99px;
+  background:rgba(232,93,26,0.1);
+  transition:background 0.35s;
+}
+.prog-seg.done{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.prog-seg.cur{background:linear-gradient(90deg,var(--orange),var(--amber));opacity:0.45;}
+.prog-label{font-size:12px;color:var(--text3);white-space:nowrap;}
 
-/* q screens */
+/* QUESTION SCREENS */
 .qscreen{display:none;}
 .qscreen.active{display:block;animation:fadeUp 0.28s ease;}
-.q-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);margin-bottom:6px;}
-.q-title{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:-0.5px;line-height:1.25;margin-bottom:5px;}
-.q-sub{font-size:13.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:1.25rem;}
+.q-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--orange);margin-bottom:7px;
+}
+.q-title{
+  font-family:'Fraunces',serif;
+  font-size:22px;font-weight:600;
+  color:var(--text);letter-spacing:-0.4px;
+  line-height:1.25;margin-bottom:6px;
+}
+.q-sub{
+  font-size:14px;color:var(--text2);
+  line-height:1.6;margin-bottom:1.5rem;font-weight:300;
+}
+.acard{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.5rem;
+  box-shadow:var(--sh);margin-bottom:1rem;
+}
 
-.acard{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:var(--shadow-sm);}
+/* STRESS GRID */
+.stress-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;}
+.stile{
+  aspect-ratio:1;border-radius:var(--r-md);
+  border:1.5px solid var(--border);background:var(--cream);
+  font-size:17px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);transition:all 0.15s;
+}
+.stile:hover{border-color:var(--orange);color:var(--orange);background:#fff7ed;}
+.stile.sl{background:#ecfdf5;border-color:#34d399;color:#065f46;box-shadow:0 0 0 3px rgba(52,211,153,0.12);}
+.stile.sm{background:#fffbeb;border-color:#f59e0b;color:#78350f;box-shadow:0 0 0 3px rgba(245,158,11,0.12);}
+.stile.sh{background:#fff1f2;border-color:#fb7185;color:#9f1239;box-shadow:0 0 0 3px rgba(251,113,133,0.12);}
 
-/* stress tiles */
-.stress-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-.stile{aspect-ratio:1;border-radius:var(--radius-md);border:1.5px solid var(--border);background:var(--surface);font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all 0.14s;}
-.stile:hover{border-color:var(--coral);color:var(--coral);background:#fff7ed;}
-.stile.sl{background:#ecfdf5;border-color:#34d399;color:#065f46;box-shadow:0 0 0 3px rgba(52,211,153,0.15);}
-.stile.sm{background:#fffbeb;border-color:#f59e0b;color:#78350f;box-shadow:0 0 0 3px rgba(245,158,11,0.15);}
-.stile.sh{background:#fff1f2;border-color:#fb7185;color:#9f1239;box-shadow:0 0 0 3px rgba(251,113,133,0.15);}
+/* RANGE SLIDER */
+.sl-row{display:flex;align-items:center;gap:13px;}
+.sl-end{font-size:12px;color:var(--text3);}
+.sl-row input[type=range]{flex:1;accent-color:var(--orange);}
+.sl-val{
+  min-width:42px;text-align:center;
+  font-size:16px;font-weight:700;color:var(--rust);
+  background:var(--cream2);border-radius:9px;padding:4px 8px;
+}
 
-/* slider */
-.sl-row{display:flex;align-items:center;gap:12px;}
-.sl-end{font-size:12px;color:var(--text-tertiary);}
-.sl-row input[type=range]{flex:1;accent-color:var(--coral);}
-.sl-val{min-width:40px;text-align:center;font-size:15px;font-weight:700;color:var(--sunset-bright);background:var(--surface2);border-radius:8px;padding:4px 8px;}
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px;}
+.chip{
+  padding:10px 18px;border-radius:99px;
+  border:1.5px solid var(--border);background:var(--cream);
+  font-size:13.5px;font-weight:400;color:var(--text2);
+  cursor:pointer;transition:all 0.15s;
+}
+.chip:hover{border-color:var(--orange);color:var(--orange);background:#fff7ed;}
+.chip.on{
+  background:linear-gradient(135deg,var(--rust),var(--amber));
+  border-color:transparent;color:white;
+  box-shadow:0 2px 14px rgba(232,93,26,0.35);
+}
 
-/* chips */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
-.chip{padding:9px 17px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font-size:13.5px;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all 0.14s;}
-.chip:hover{border-color:var(--coral);color:var(--coral);background:#fff7ed;}
-.chip.on{background:linear-gradient(135deg,var(--sunset-bright),var(--amber));border-color:transparent;color:white;box-shadow:0 2px 12px rgba(234,88,12,0.32);}
-
-/* radio */
-.radios{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
-.ritem{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--radius-md);border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all 0.14s;}
-.ritem:hover{border-color:var(--coral);background:#fff7ed;}
-.ritem.on{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:var(--coral);}
-.rdot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.14s;}
-.ritem.on .rdot{border-color:var(--coral);background:var(--coral);box-shadow:0 0 0 3px rgba(249,115,22,0.18);}
+/* RADIO */
+.radios{display:flex;flex-direction:column;gap:9px;}
+.ritem{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 16px;border-radius:var(--r-md);
+  border:1.5px solid var(--border);background:var(--cream);
+  cursor:pointer;transition:all 0.15s;
+}
+.ritem:hover{border-color:var(--orange);background:#fff7ed;}
+.ritem.on{background:linear-gradient(135deg,#fff7ed,#ffedd5);border-color:var(--orange);}
+.rdot{
+  width:19px;height:19px;border-radius:50%;
+  border:2px solid var(--border2);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.ritem.on .rdot{
+  border-color:var(--orange);background:var(--orange);
+  box-shadow:0 0 0 3px rgba(232,93,26,0.18);
+}
 .ritem.on .rdot::after{content:'';width:6px;height:6px;background:white;border-radius:50%;}
-.rlabel{font-size:14px;font-weight:500;color:var(--text-primary);}
-.ritem.on .rlabel{color:var(--sunset-bright);}
+.rlabel{font-size:14px;font-weight:400;color:var(--text);}
+.ritem.on .rlabel{color:var(--rust);font-weight:500;}
 
-/* nav buttons */
-.btn-row{display:flex;gap:10px;margin-top:1.25rem;}
-.btn-next{flex:1;padding:15px;border:none;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--sunset-bright),var(--amber));color:white;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 18px rgba(234,88,12,0.38);transition:all 0.2s;letter-spacing:-0.2px;}
-.btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(234,88,12,0.46);}
-.btn-next:disabled{opacity:0.33;cursor:default;transform:none;box-shadow:none;}
-.btn-back{padding:15px 20px;border:1.5px solid var(--border-strong);border-radius:var(--radius-md);background:transparent;color:var(--text-secondary);font-size:15px;cursor:pointer;transition:all 0.14s;}
-.btn-back:hover{background:var(--surface2);border-color:var(--coral);color:var(--coral);}
+/* BODY DATA SECTION */
+.body-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+@media(max-width:480px){.body-row{grid-template-columns:1fr;}}
+.field-group{display:flex;flex-direction:column;gap:6px;}
+.field-label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;}
+.field-input{
+  padding:11px 14px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--cream);
+  font-size:14px;color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  outline:none;transition:border-color 0.15s;
+}
+.field-input:focus{border-color:var(--orange);}
+.field-input::placeholder{color:var(--text3);}
+.select-input{
+  padding:11px 14px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border);background:var(--cream);
+  font-size:14px;color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  outline:none;transition:border-color 0.15s;
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a06040' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  padding-right:36px;
+}
+.skip-note{
+  font-size:12px;color:var(--text3);
+  margin-top:8px;font-style:italic;
+}
 
-/* ── RESULT ── */
+/* BUTTON ROW */
+.btn-row{display:flex;gap:10px;margin-top:1.5rem;}
+.btn-next{
+  flex:1;padding:15px;border:none;border-radius:var(--r-md);
+  background:linear-gradient(135deg,var(--rust),var(--amber));
+  color:white;font-size:15px;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 4px 20px rgba(232,93,26,0.40);
+  transition:all 0.2s;
+}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 7px 28px rgba(232,93,26,0.48);}
+.btn-next:disabled{opacity:0.32;cursor:default;transform:none;box-shadow:none;}
+.btn-back{
+  padding:15px 22px;border:1.5px solid var(--border2);
+  border-radius:var(--r-md);background:transparent;
+  color:var(--text2);font-size:15px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+}
+.btn-back:hover{background:var(--cream2);border-color:var(--orange);color:var(--orange);}
+
+/* ==========================================
+   RESULT SCREEN
+   ========================================== */
 .rscreen{display:none;animation:fadeUp 0.35s ease;}
 .rscreen.active{display:block;}
 
-.score-row{display:flex;gap:10px;margin-bottom:1rem;flex-wrap:wrap;}
-.sc-chip{flex:1;min-width:78px;background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;text-align:center;box-shadow:var(--shadow-sm);}
-.sc-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-tertiary);margin-bottom:3px;}
-.sc-val{font-size:20px;font-weight:700;color:var(--text-primary);}
+.score-strip{
+  display:flex;flex-wrap:wrap;gap:9px;
+  margin-bottom:1.25rem;
+}
+.sc-chip{
+  flex:1;min-width:72px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:11px 13px;
+  text-align:center;box-shadow:var(--sh);
+}
+.sc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:3px;}
+.sc-val{font-size:20px;font-weight:700;color:var(--text);font-family:'Fraunces',serif;}
 
-.result-banner{border-radius:var(--radius-xl);padding:1.75rem;margin-bottom:1rem;}
+/* RESULT BANNER */
+.result-banner{border-radius:var(--r-xl);padding:2rem;margin-bottom:1.25rem;}
 .result-banner.low{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #6ee7b7;}
 .result-banner.med{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fcd34d;}
 .result-banner.high{background:linear-gradient(135deg,#fff1f2,#fee2e2);border:1px solid #fda4af;}
-.rb-lbl{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
-.result-banner.low .rb-lbl{color:#059669;}
-.result-banner.med .rb-lbl{color:#d97706;}
-.result-banner.high .rb-lbl{color:#e11d48;}
-.rb-title{font-size:20px;font-weight:700;letter-spacing:-0.4px;line-height:1.2;margin-bottom:10px;}
+.rb-badge{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:4px 12px;border-radius:99px;margin-bottom:10px;
+}
+.result-banner.low .rb-badge{background:#d1fae5;color:#059669;}
+.result-banner.med .rb-badge{background:#fef3c7;color:#d97706;}
+.result-banner.high .rb-badge{background:#fee2e2;color:#e11d48;}
+.rb-title{
+  font-family:'Fraunces',serif;
+  font-size:22px;font-weight:600;
+  letter-spacing:-0.3px;line-height:1.25;margin-bottom:10px;
+}
 .result-banner.low .rb-title{color:#064e3b;}
 .result-banner.med .rb-title{color:#78350f;}
 .result-banner.high .rb-title{color:#881337;}
-.rb-body{font-size:14px;line-height:1.72;}
+.rb-body{font-size:14px;line-height:1.78;font-weight:300;}
 .result-banner.low .rb-body{color:#047857;}
 .result-banner.med .rb-body{color:#92400e;}
 .result-banner.high .rb-body{color:#9f1239;}
 
-.sci-note{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:0.5px solid rgba(234,88,12,0.22);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;}
-.sci-note-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--coral);margin-bottom:6px;}
-.sci-note-text{font-size:13px;color:var(--sunset-deep);line-height:1.68;}
+/* BMI CALLOUT */
+.bmi-callout{
+  display:flex;gap:12px;align-items:flex-start;
+  background:linear-gradient(135deg,#fff7ed,#ffedd5);
+  border:1px solid rgba(232,93,26,0.22);
+  border-radius:var(--r-md);padding:14px 16px;
+  margin-bottom:1.25rem;
+}
+.bmi-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.bmi-text{font-size:13px;color:var(--deep);line-height:1.65;font-weight:300;}
+.bmi-text strong{font-weight:600;color:var(--rust);}
 
-.action-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:var(--shadow-sm);}
-.action-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);margin-bottom:10px;}
+/* MECHANISM CHAIN PANEL */
+.mechanism-panel{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+  margin-bottom:1.25rem;box-shadow:var(--sh);
+}
+.mechanism-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;cursor:pointer;
+  background:linear-gradient(135deg,#fff7ed,#ffedd5);
+  border:none;width:100%;text-align:left;
+  font-family:'DM Sans',sans-serif;
+  transition:background 0.15s;
+}
+.mechanism-toggle:hover{background:linear-gradient(135deg,#ffedd5,#fed7aa);}
+.mechanism-toggle-left{display:flex;align-items:center;gap:11px;}
+.mechanism-toggle-icon{font-size:18px;}
+.mechanism-toggle-text{
+  font-size:14px;font-weight:600;color:var(--rust);
+}
+.mechanism-toggle-sub{font-size:12px;color:var(--text3);font-weight:300;margin-top:1px;}
+.mechanism-chevron{
+  font-size:16px;color:var(--orange);
+  transition:transform 0.28s;
+}
+.mechanism-panel.open .mechanism-chevron{transform:rotate(180deg);}
+.mechanism-body{
+  display:none;padding:20px;
+  border-top:1px solid var(--border);
+}
+.mechanism-panel.open .mechanism-body{display:block;}
+
+.chain{display:flex;flex-direction:column;gap:0;}
+.chain-step{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:13px 0;
+  border-bottom:1px dashed var(--border);
+}
+.chain-step:last-child{border-bottom:none;}
+.chain-num{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  color:white;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.chain-content{}
+.chain-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.08em;color:var(--orange);margin-bottom:3px;
+}
+.chain-text{font-size:13.5px;color:var(--text);line-height:1.6;font-weight:300;}
+.chain-text strong{font-weight:600;color:var(--deep);}
+
+.sci-source{
+  margin-top:16px;
+  background:var(--cream);border-radius:var(--r-md);
+  padding:13px 15px;
+}
+.sci-source-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--orange);margin-bottom:8px;
+}
+.sci-source-links{display:flex;flex-wrap:wrap;gap:7px;}
+.sci-source-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:500;
+  color:var(--rust);text-decoration:none;
+  background:white;border:1px solid var(--border2);
+  border-radius:99px;padding:5px 12px;
+  transition:all 0.15s;
+}
+.sci-source-link:hover{background:var(--cream2);border-color:var(--orange);}
+
+/* ACTION CARD */
+.action-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.5rem;
+  margin-bottom:1.25rem;box-shadow:var(--sh);
+}
+.action-lbl{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.09em;color:var(--orange);margin-bottom:13px;
+}
 .action-list{list-style:none;}
-.action-list li{display:flex;gap:10px;padding:11px 0;border-bottom:0.5px solid rgba(234,88,12,0.08);font-size:14px;color:var(--text-primary);line-height:1.58;}
+.action-list li{
+  display:flex;gap:11px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(232,93,26,0.07);
+  font-size:14px;color:var(--text);line-height:1.6;
+  font-weight:300;
+}
 .action-list li:last-child{border-bottom:none;}
-.a-arrow{color:var(--coral);font-weight:700;flex-shrink:0;}
+.action-arrow{color:var(--orange);font-weight:700;flex-shrink:0;margin-top:1px;}
 
-.outcome-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:.75rem;box-shadow:var(--shadow-sm);}
-.oc-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--coral);margin-bottom:10px;}
-.oc-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.oc-btn{flex:1;min-width:110px;padding:11px;border-radius:var(--radius-md);border:1.5px solid var(--border);background:var(--surface);color:var(--text-primary);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.14s;}
-.oc-btn:hover{background:#fff7ed;border-color:var(--coral);color:var(--coral);}
-.btn-restart{width:100%;padding:13px;border:1.5px solid var(--border-strong);border-radius:var(--radius-md);background:transparent;color:var(--text-secondary);font-size:14px;cursor:pointer;transition:all 0.14s;}
-.btn-restart:hover{background:var(--surface2);}
+/* OUTCOME */
+.outcome-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.5rem;
+  margin-bottom:1rem;box-shadow:var(--sh);
+}
+.oc-lbl{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.09em;color:var(--orange);margin-bottom:12px;
+}
+.oc-btns{display:flex;gap:9px;flex-wrap:wrap;}
+.oc-btn{
+  flex:1;min-width:110px;padding:12px;
+  border-radius:var(--r-md);border:1.5px solid var(--border);
+  background:var(--cream);color:var(--text);
+  font-size:13px;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.15s;
+}
+.oc-btn:hover{background:#fff7ed;border-color:var(--orange);color:var(--orange);}
+.btn-restart{
+  width:100%;padding:13px;
+  border:1.5px solid var(--border2);border-radius:var(--r-md);
+  background:transparent;color:var(--text2);
+  font-size:14px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.15s;
+}
+.btn-restart:hover{background:var(--cream2);}
 
-/* ── LOG ── */
-.metric-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1rem;}
-.m-card{background:var(--white);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:14px;text-align:center;box-shadow:var(--shadow-sm);}
-.m-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-tertiary);margin-bottom:4px;}
-.m-val{font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:-0.5px;}
-.bar-section .acard{margin-bottom:1rem;}
-.brow{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+/* LOG */
+.metric-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:11px;margin-bottom:1.25rem;
+}
+.m-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:15px;
+  text-align:center;box-shadow:var(--sh);
+}
+.m-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);margin-bottom:5px;}
+.m-val{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--text);}
+
+.bar-section .acard{margin-bottom:1.25rem;}
+.brow{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
 .brow:last-child{margin-bottom:0;}
-.blbl{color:var(--text-secondary);min-width:72px;font-size:12.5px;}
-.btrack{flex:1;height:6px;background:rgba(234,88,12,0.09);border-radius:99px;overflow:hidden;}
+.blbl{color:var(--text2);min-width:72px;font-size:13px;}
+.btrack{flex:1;height:6px;background:rgba(232,93,26,0.09);border-radius:99px;overflow:hidden;}
 .bfill{height:100%;border-radius:99px;transition:width 0.5s ease;}
-.bcnt{color:var(--text-tertiary);min-width:18px;text-align:right;font-size:12px;}
+.bcnt{color:var(--text3);min-width:18px;text-align:right;font-size:12px;}
+
 .log-list .acard{margin-bottom:0;}
-.log-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid rgba(234,88,12,0.07);font-size:13px;}
+.log-row{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid rgba(232,93,26,0.07);
+  font-size:13px;
+}
 .log-row:last-child{border-bottom:none;}
-.log-time{color:var(--text-tertiary);min-width:44px;font-size:11.5px;}
+.log-time{color:var(--text3);min-width:44px;font-size:11.5px;}
 .log-badge{padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap;}
 .lb-low{background:#d1fae5;color:#065f46;}
 .lb-med{background:#fef3c7;color:#92400e;}
 .lb-high{background:#ffe4e6;color:#9f1239;}
-.log-tags{flex:1;color:var(--text-primary);}
-.log-out{font-size:11.5px;color:var(--text-tertiary);}
-.log-empty{text-align:center;padding:2.5rem;color:var(--text-tertiary);font-size:14px;}
+.log-tags{flex:1;color:var(--text);}
+.log-out{font-size:11.5px;color:var(--text3);}
+.log-empty{text-align:center;padding:3rem;color:var(--text3);font-size:14px;}
 </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar">
-  <div class="nav-brand"><div class="nav-brand-glow"></div>StressReset</div>
+  <div class="nav-brand"><div class="brand-dot"></div>StressReset</div>
   <div class="nav-links">
     <button class="nav-link active" onclick="showPage('about')">About</button>
-    <button class="nav-link" onclick="showPage('benefits')">The Benefits</button>
-    <button class="nav-link" onclick="showPage('app')">Stress Reset</button>
+    <button class="nav-link" onclick="showPage('benefits')">The Science</button>
+    <button class="nav-link" onclick="showPage('app')">Check-in</button>
   </div>
 </nav>
 
-<!-- ════════════ ABOUT ════════════ -->
+<!-- ================== ABOUT ================== -->
 <div id="page-about" class="page active">
-
-  <div class="about-hero">
-    <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>Behavioural Health App</div>
-    <h1 class="hero-title">Your hunger<br>has a <em>story.</em><br>Let's read it.</h1>
-    <p class="hero-sub">StressReset is a personal companion for understanding why you reach for food when you're stressed — and what your body actually needs instead.</p>
-    <button class="hero-cta" onclick="showPage('app')">Try it now →</button>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill"><div class="pill-dot"></div>Behavioural Health App</div>
+      <h1>Your hunger<br>has a <em>story.</em><br>Let's read it.</h1>
+      <p class="hero-sub">StressReset is a science-backed companion for understanding why you reach for food under stress — and what your nervous system actually needs instead.</p>
+      <button class="hero-cta" onclick="showPage('app')">
+        Start your check-in
+        <span class="hero-cta-arrow">→</span>
+      </button>
+    </div>
   </div>
 
-  <div class="about-body">
-
-    <div class="welcome-block">
+  <div class="section">
+    <div class="welcome-grid">
       <div class="welcome-text">
-        <div class="eyebrow">Welcome</div>
-        <h2>This isn't about willpower. It's about biology.</h2>
-        <p>If you've ever reached for food when you were stressed — and then felt guilty about it — this app is for you. You weren't weak. You were responding to a very real hormonal cascade that your body was designed to produce under pressure.</p>
-        <p style="margin-top:12px;">StressReset helps you pause that cascade, understand what's happening inside you, and choose a response that actually serves you. Think of it as a gentle nudge from your own biology.</p>
+        <div class="section-label">Welcome</div>
+        <h2 class="section-title">This isn't about willpower. It's about biology.</h2>
+        <p>If you've ever reached for food when stressed — and felt guilty afterward — this app is for you. You weren't weak. You were responding to a real hormonal cascade that your body was built to produce under pressure.</p>
+        <p>StressReset helps you pause that cascade, understand what's happening inside you, and choose a response that actually serves your biology. Think of it as a nudge from your own nervous system.</p>
+        <p>Optionally enter your height, weight, and biological sex to receive more personalised risk assessments based on your metabolic profile.</p>
       </div>
       <div class="welcome-card">
-        <div class="welcome-card-title">What StressReset does</div>
+        <div class="wc-title">What StressReset does</div>
         <div class="wc-row">
           <div class="wc-icon">🧠</div>
-          <div class="wc-content"><h4>Reads your stress in real time</h4><p>A quick 6-question check-in profiles your stress, hunger, sleep, and symptoms.</p></div>
+          <div class="wc-info"><h4>Reads your stress in real time</h4><p>A 7-question check-in profiles your stress, hunger, sleep, mood, triggers, and body composition.</p></div>
         </div>
         <div class="wc-row">
-          <div class="wc-icon">💡</div>
-          <div class="wc-content"><h4>Explains the "why"</h4><p>Every nudge comes with the science behind it — so you understand, not just obey.</p></div>
+          <div class="wc-icon">🔬</div>
+          <div class="wc-info"><h4>Shows you the mechanism</h4><p>Every result includes a "What's happening in your body?" panel — the actual hormonal chain behind your craving.</p></div>
+        </div>
+        <div class="wc-row">
+          <div class="wc-icon">🎯</div>
+          <div class="wc-info"><h4>Personalised to your biology</h4><p>Body data adjusts your metabolic risk tier and tone — not just generic advice.</p></div>
         </div>
         <div class="wc-row">
           <div class="wc-icon">🌱</div>
-          <div class="wc-content"><h4>Builds lasting awareness</h4><p>Your log tracks patterns over time, helping you spot triggers before they take hold.</p></div>
+          <div class="wc-info"><h4>Builds lasting awareness</h4><p>Your log tracks patterns over time, helping you spot triggers before they take hold.</p></div>
         </div>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <div class="science-section-title">The Science</div>
-    <h2 class="science-section-h2">What's really happening when stress makes you hungry</h2>
-    <p class="science-section-sub">Your body isn't broken — it's doing exactly what it evolved to do. These four systems work together to drive stress-eating, and understanding them is the first step to interrupting the cycle.</p>
+    <div class="section-label">The Science</div>
+    <h2 class="section-title">What's really happening when stress makes you hungry</h2>
+    <p class="section-sub">Your body isn't broken — it's doing exactly what it evolved to do. Four systems work together to drive stress-eating, and understanding them is the first step to interrupting the cycle.</p>
 
     <div class="sci-grid">
       <div class="sci-card">
-        <div class="sci-icon-wrap ic-orange">🧠</div>
+        <div class="sci-icon ic-o">🧠</div>
         <h3>HPA Axis &amp; Cortisol</h3>
-        <p>When you experience stress, the hypothalamic–pituitary–adrenal axis floods your body with cortisol. This mobilises blood glucose, promotes fat storage, and powerfully stimulates appetite — especially for calorie-dense comfort foods.</p>
-        <div class="tag-row"><span class="tag tag-orange">HPA axis</span><span class="tag tag-orange">Cortisol surge</span></div>
+        <p>When you experience stress, the hypothalamic-pituitary-adrenal axis floods your body with cortisol. This mobilises blood glucose, promotes visceral fat storage, and powerfully stimulates appetite — especially for calorie-dense foods.</p>
+        <div class="tags"><span class="tag tag-o">HPA axis</span><span class="tag tag-o">Cortisol</span></div>
+        <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4214609/" target="_blank" rel="noopener">↗ Tsigos &amp; Chrousos, 2002 (NIH)</a>
       </div>
       <div class="sci-card">
-        <div class="sci-icon-wrap ic-amber">⚖️</div>
+        <div class="sci-icon ic-a">⚖️</div>
         <h3>Leptin &amp; Ghrelin</h3>
-        <p>Stress suppresses leptin — your "I'm satisfied" signal — while elevating ghrelin, the hunger hormone. Together they create intense food cravings even when you have plenty of energy stored.</p>
-        <div class="tag-row"><span class="tag tag-amber">Leptin ↓</span><span class="tag tag-amber">Ghrelin ↑</span></div>
+        <p>Stress suppresses leptin — your satiety signal — while elevating ghrelin, the hunger hormone. Together they create intense food cravings even when you have adequate energy stores.</p>
+        <div class="tags"><span class="tag tag-a">Leptin ↓</span><span class="tag tag-a">Ghrelin ↑</span></div>
+        <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3428710/" target="_blank" rel="noopener">↗ Taheri et al. (NIH)</a>
       </div>
       <div class="sci-card">
-        <div class="sci-icon-wrap ic-rose">🎯</div>
+        <div class="sci-icon ic-r">🎯</div>
         <h3>Dopamine &amp; Reward</h3>
-        <p>Sweet, fatty, salty foods trigger a dopamine hit in your brain's reward centre. Under stress, this signal is amplified — your brain literally learns to use food as emotional medicine, reinforcing the habit loop.</p>
-        <div class="tag-row"><span class="tag tag-rose">Dopamine loop</span><span class="tag tag-coral">Reward pathway</span></div>
+        <p>Sweet, fatty, salty foods trigger a dopamine hit in your brain's nucleus accumbens. Under stress, this signal is amplified — your brain learns to use food as emotional medicine, deepening the habit loop.</p>
+        <div class="tags"><span class="tag tag-r">Dopamine loop</span><span class="tag tag-r">Reward pathway</span></div>
+        <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2732004/" target="_blank" rel="noopener">↗ Dallman et al. (NIH)</a>
       </div>
       <div class="sci-card">
-        <div class="sci-icon-wrap ic-peach">📈</div>
+        <div class="sci-icon ic-p">📈</div>
         <h3>Insulin Resistance</h3>
-        <p>Repeated cortisol-driven glucose spikes reduce your cells' sensitivity to insulin over time. Stress-eating high-glycaemic foods compounds this risk, increasing the likelihood of metabolic syndrome.</p>
-        <div class="tag-row"><span class="tag tag-orange">Glucose dysregulation</span><span class="tag tag-amber">Metabolic risk</span></div>
+        <p>Repeated cortisol-driven glucose spikes reduce cellular insulin sensitivity over time. Stress-eating high-glycaemic foods compounds this risk, increasing the likelihood of metabolic syndrome — especially with elevated BMI.</p>
+        <div class="tags"><span class="tag tag-o">Glucose</span><span class="tag tag-a">Metabolic risk</span></div>
+        <a class="ref-link" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5958156/" target="_blank" rel="noopener">↗ Kivimäki &amp; Steptoe (NIH)</a>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <div class="science-section-title">The Cycle</div>
-    <h2 class="science-section-h2">How a moment of stress becomes a habit</h2>
-    <p class="science-section-sub" style="margin-bottom:1.25rem;">Four steps — and each one makes the next harder to interrupt. Until you see them clearly.</p>
-
+    <div class="section-label">The Cycle</div>
+    <h2 class="section-title">How a moment of stress becomes a habit</h2>
+    <p class="section-sub" style="margin-bottom:1.5rem;">Four steps — and each one makes the next harder to interrupt. Until you see them clearly.</p>
     <div class="cycle-card">
-      <div class="cycle-row"><div class="cycle-num">1</div><div class="cycle-text"><strong>Stressor perceived</strong> — your brain flags a threat. The HPA axis activates within seconds, and cortisol starts rising.</div></div>
+      <div class="cycle-row"><div class="cycle-num">1</div><div class="cycle-body"><strong>Stressor perceived</strong> — your brain flags a threat. The HPA axis activates within seconds, and cortisol begins rising from the adrenal glands.</div></div>
       <div class="cycle-arrow">↓</div>
-      <div class="cycle-row"><div class="cycle-num">2</div><div class="cycle-text"><strong>Hormones shift</strong> — cortisol climbs, leptin falls, ghrelin rises. Your appetite surges — even if you ate an hour ago.</div></div>
+      <div class="cycle-row"><div class="cycle-num">2</div><div class="cycle-body"><strong>Hormones shift</strong> — cortisol climbs, leptin falls, ghrelin rises. Appetite surges — even if you ate an hour ago. Your prefrontal cortex begins to lose ground to limbic impulse.</div></div>
       <div class="cycle-arrow">↓</div>
-      <div class="cycle-row"><div class="cycle-num">3</div><div class="cycle-text"><strong>You reach for food</strong> — a dopamine hit from something sweet or salty provides brief relief. The stress response eases a little.</div></div>
+      <div class="cycle-row"><div class="cycle-num">3</div><div class="cycle-body"><strong>You reach for food</strong> — a dopamine hit from something sweet or salty provides brief relief. The HPA axis quiets marginally. The stress response temporarily eases.</div></div>
       <div class="cycle-arrow">↓</div>
-      <div class="cycle-row danger"><div class="cycle-num">4</div><div class="cycle-text"><strong>The pattern hardens</strong> — your brain files this away: "stress → food → better." Each repetition deepens the groove. This is where StressReset steps in.</div></div>
+      <div class="cycle-row danger"><div class="cycle-num">4</div><div class="cycle-body"><strong>The pattern hardens</strong> — your brain files this away: stress → food → relief. Each repetition deepens the groove and raises your baseline cortisol. This is exactly where StressReset steps in.</div></div>
     </div>
-
   </div>
 </div>
 
-<!-- ════════════ BENEFITS ════════════ -->
+<!-- ================== BENEFITS ================== -->
 <div id="page-benefits" class="page">
-  <div class="benefits-hero">
-    <div class="hero-eyebrow" style="background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.22);">
-      <div class="hero-eyebrow-dot"></div>Why It Works
+  <div class="hero" style="min-height:400px;">
+    <div class="hero-inner">
+      <div class="hero-pill"><div class="pill-dot"></div>Why It Works</div>
+      <h1>Built around<br>your <em>biology,</em><br>not your guilt.</h1>
+      <p class="hero-sub">No calorie counting. No shame. Science-backed nudges delivered exactly when your nervous system needs them most.</p>
     </div>
-    <h1 class="hero-title" style="font-size:clamp(32px,5vw,48px);">Built around<br><em>your biology,</em><br>not your guilt.</h1>
-    <p class="hero-sub" style="margin-top:1rem;">No calorie counting. No shame spirals. Just science-backed nudges delivered exactly when your nervous system needs them most.</p>
   </div>
 
-  <div class="benefits-body">
-    <div class="stat-strip">
-      <div class="stat-card"><div class="stat-num">73%</div><div class="stat-desc">of adults use food to cope with stress</div></div>
-      <div class="stat-card"><div class="stat-num">3×</div><div class="stat-desc">higher ghrelin under acute stress</div></div>
-      <div class="stat-card"><div class="stat-num">90s</div><div class="stat-desc">how long a cortisol craving spike lasts</div></div>
+  <div class="section">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">73%</div><div class="stat-desc">of adults use food to cope with stress (APA, 2013)</div></div>
+      <div class="stat"><div class="stat-num">3×</div><div class="stat-desc">higher ghrelin under acute stress conditions</div></div>
+      <div class="stat"><div class="stat-num">90s</div><div class="stat-desc">how long a cortisol craving spike typically lasts</div></div>
     </div>
 
     <div class="divider"></div>
-    <div class="science-section-title">What's inside</div>
-    <h2 class="science-section-h2" style="margin-bottom:1.25rem;">Everything you need, nothing you don't</h2>
+
+    <div class="section-label">What's inside</div>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Everything you need, nothing you don't</h2>
 
     <div class="feature-list">
-      <div class="feature-item"><div class="fi-icon fi-1">🎯</div><div class="fi-content"><h3>Deep stress profiling</h3><p>Six targeted questions assess your stress intensity, hunger, sleep quality, stress triggers, physical symptoms, and recent eating — building a full hormonal picture before you get a single recommendation.</p></div></div>
-      <div class="feature-item"><div class="fi-icon fi-2">🔬</div><div class="fi-content"><h3>Science in plain language</h3><p>Every nudge includes a brief explanation of the hormonal mechanism driving it. You'll understand cortisol, ghrelin, dopamine, and insulin not as jargon — but as things happening in your body right now.</p></div></div>
-      <div class="feature-item"><div class="fi-icon fi-3">💬</div><div class="fi-content"><h3>Context-aware responses</h3><p>High stress + poor sleep + skipped meals gets a very different response than moderate stress + full stomach + boredom. The app adapts in real time to your specific combination of inputs.</p></div></div>
-      <div class="feature-item"><div class="fi-icon fi-4">📊</div><div class="fi-content"><h3>Personal pattern tracking</h3><p>Your session log records every check-in — stress levels, triggers, hunger, and whether the nudge helped. Over time, you'll see your own patterns clearly enough to anticipate them.</p></div></div>
-      <div class="feature-item"><div class="fi-icon fi-5">🧘</div><div class="fi-content"><h3>Nervous system tools</h3><p>Box breathing, cold-water vagal stimulation, grounding exercises, social connection prompts — delivered precisely when cortisol is peaking and you need them most.</p></div></div>
-      <div class="feature-item"><div class="fi-icon fi-6">🌱</div><div class="fi-content"><h3>Habit interruption, not willpower</h3><p>StressReset doesn't ask you to resist your cravings through sheer force. It gives you a 90-second window and the right tools to let the cortisol wave pass naturally.</p></div></div>
+      <div class="feature"><div class="fi fi1">🎯</div><div><h3>Personalised biological profiling</h3><p>Seven questions assess stress, hunger, sleep, mood, triggers, physical symptoms, and optionally your body composition — building a full hormonal picture before any recommendation is made.</p></div></div>
+      <div class="feature"><div class="fi fi2">🔬</div><div><h3>Visible mechanism chains</h3><p>Every result includes a collapsible "What's happening in your body?" panel showing the exact Stimulus → Biology → Behaviour → Outcome chain driving your craving. The mechanism is in the app, not just a report.</p></div></div>
+      <div class="feature"><div class="fi fi3">💬</div><div><h3>Context-aware, adaptive responses</h3><p>High stress + poor sleep + elevated BMI gets a very different response than moderate stress + full stomach + boredom. The app adapts in real time to your unique combination.</p></div></div>
+      <div class="feature"><div class="fi fi4">📊</div><div><h3>Pattern tracking over time</h3><p>Your session log records every check-in — stress levels, triggers, hunger, and whether the nudge helped. Patterns become visible before triggers do.</p></div></div>
+      <div class="feature"><div class="fi fi5">🧘</div><div><h3>Nervous system tools, not willpower</h3><p>Box breathing, cold-water vagal stimulation, grounding exercises — delivered precisely when cortisol is peaking and your prefrontal cortex needs support.</p></div></div>
+      <div class="feature"><div class="fi fi6">📚</div><div><h3>Cited, peer-reviewed science</h3><p>Every biological claim links to primary literature from NIH, PubMed, and peer-reviewed journals. You can verify the science behind every nudge you receive.</p></div></div>
     </div>
 
     <div class="cta-block">
-      <div class="cta-eyebrow">Ready?</div>
-      <div class="cta-title">Do your first check-in now</div>
-      <div class="cta-sub">Two minutes. Six questions. A personalised, science-backed nudge delivered immediately.</div>
-      <button class="cta-btn" onclick="showPage('app')">Open Stress Reset →</button>
+      <div class="section-label">Ready?</div>
+      <h2>Do your first check-in now</h2>
+      <p>Two minutes. Seven questions. A personalised, science-backed nudge delivered immediately.</p>
+      <button class="cta-btn" onclick="showPage('app')">Open Stress Reset</button>
     </div>
   </div>
 </div>
 
-<!-- ════════════ STRESS RESET ════════════ -->
+<!-- ================== APP ================== -->
 <div id="page-app" class="page">
   <div class="app-hero">
-    <div class="app-hero-inner">
-      <h2>Stress Reset</h2>
-      <p>A personalised check-in takes about 2 minutes</p>
-    </div>
+    <h2>Stress Reset</h2>
+    <p>A personalised check-in — about 2 minutes</p>
   </div>
 
   <div class="app-body">
@@ -451,7 +892,6 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
 
     <!-- CHECK-IN PANE -->
     <div id="sub-checkin" class="subtab-pane active">
-
       <div class="prog-wrap">
         <div class="prog-seg cur" id="ps1"></div>
         <div class="prog-seg" id="ps2"></div>
@@ -459,28 +899,37 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
         <div class="prog-seg" id="ps4"></div>
         <div class="prog-seg" id="ps5"></div>
         <div class="prog-seg" id="ps6"></div>
-        <span class="prog-label" id="prog-txt">Step 1 of 6</span>
+        <div class="prog-seg" id="ps7"></div>
+        <span class="prog-label" id="prog-txt">Step 1 of 7</span>
       </div>
 
-      <!-- Q1 stress level -->
+      <!-- Q1: Stress level -->
       <div id="q1" class="qscreen active">
-        <div class="q-eyebrow">Question 1 of 6</div>
+        <div class="q-label">Question 1 of 7</div>
         <div class="q-title">How stressed do you feel right now?</div>
-        <div class="q-sub">1 = completely at ease · 10 = overwhelmed and frantic</div>
+        <div class="q-sub">1 = completely at ease &nbsp;·&nbsp; 10 = overwhelmed and frantic</div>
         <div class="acard">
           <div class="stress-grid">
-            <div class="stile" onclick="pickStress(1)">1</div><div class="stile" onclick="pickStress(2)">2</div><div class="stile" onclick="pickStress(3)">3</div><div class="stile" onclick="pickStress(4)">4</div><div class="stile" onclick="pickStress(5)">5</div>
-            <div class="stile" onclick="pickStress(6)">6</div><div class="stile" onclick="pickStress(7)">7</div><div class="stile" onclick="pickStress(8)">8</div><div class="stile" onclick="pickStress(9)">9</div><div class="stile" onclick="pickStress(10)">10</div>
+            <div class="stile" onclick="pickStress(1)">1</div>
+            <div class="stile" onclick="pickStress(2)">2</div>
+            <div class="stile" onclick="pickStress(3)">3</div>
+            <div class="stile" onclick="pickStress(4)">4</div>
+            <div class="stile" onclick="pickStress(5)">5</div>
+            <div class="stile" onclick="pickStress(6)">6</div>
+            <div class="stile" onclick="pickStress(7)">7</div>
+            <div class="stile" onclick="pickStress(8)">8</div>
+            <div class="stile" onclick="pickStress(9)">9</div>
+            <div class="stile" onclick="pickStress(10)">10</div>
           </div>
         </div>
         <div class="btn-row"><button class="btn-next" id="q1n" onclick="toQ(2)" disabled>Continue</button></div>
       </div>
 
-      <!-- Q2 hunger -->
+      <!-- Q2: Hunger -->
       <div id="q2" class="qscreen">
-        <div class="q-eyebrow">Question 2 of 6</div>
+        <div class="q-label">Question 2 of 7</div>
         <div class="q-title">How hungry do you feel right now?</div>
-        <div class="q-sub">Try to notice: is it a physical empty feeling, or more of an urge or craving?</div>
+        <div class="q-sub">Notice: is this a physical empty feeling, or more of an urge or craving?</div>
         <div class="acard">
           <div class="sl-row">
             <span class="sl-end">Not at all</span>
@@ -492,11 +941,11 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
         <div class="btn-row"><button class="btn-back" onclick="toQ(1)">←</button><button class="btn-next" onclick="toQ(3)">Continue</button></div>
       </div>
 
-      <!-- Q3 mood -->
+      <!-- Q3: Mood -->
       <div id="q3" class="qscreen">
-        <div class="q-eyebrow">Question 3 of 6</div>
+        <div class="q-label">Question 3 of 7</div>
         <div class="q-title">How would you describe your emotional state?</div>
-        <div class="q-sub">Be honest with yourself — your mood directly shapes your hormonal response to food.</div>
+        <div class="q-sub">Be honest — your mood directly shapes your hormonal response to food.</div>
         <div class="acard">
           <div class="radios" id="mood-grp">
             <div class="ritem" onclick="pickRadio('mood-grp',this,'calm')"><div class="rdot"></div><span class="rlabel">Calm and grounded</span></div>
@@ -509,11 +958,11 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
         <div class="btn-row"><button class="btn-back" onclick="toQ(2)">←</button><button class="btn-next" id="q3n" onclick="toQ(4)" disabled>Continue</button></div>
       </div>
 
-      <!-- Q4 sleep -->
+      <!-- Q4: Sleep -->
       <div id="q4" class="qscreen">
-        <div class="q-eyebrow">Question 4 of 6</div>
+        <div class="q-label">Question 4 of 7</div>
         <div class="q-title">How did you sleep last night?</div>
-        <div class="q-sub">Sleep deprivation raises cortisol and ghrelin — even one bad night significantly increases stress-eating risk.</div>
+        <div class="q-sub">Even one night of poor sleep raises ghrelin significantly and elevates baseline cortisol.</div>
         <div class="acard">
           <div class="radios" id="sleep-grp">
             <div class="ritem" onclick="pickRadio('sleep-grp',this,'great')"><div class="rdot"></div><span class="rlabel">7–9 hours, felt rested</span></div>
@@ -525,13 +974,13 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
         <div class="btn-row"><button class="btn-back" onclick="toQ(3)">←</button><button class="btn-next" id="q4n" onclick="toQ(5)" disabled>Continue</button></div>
       </div>
 
-      <!-- Q5 triggers + symptoms combined -->
+      <!-- Q5: Triggers & Symptoms -->
       <div id="q5" class="qscreen">
-        <div class="q-eyebrow">Question 5 of 6</div>
+        <div class="q-label">Question 5 of 7</div>
         <div class="q-title">What's going on right now?</div>
-        <div class="q-sub">Select anything that fits — stress triggers <em>and</em> physical sensations both count.</div>
+        <div class="q-sub">Select anything that fits — stress triggers and physical sensations both shape your hormonal state.</div>
         <div class="acard">
-          <div style="font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;">Stress triggers</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:9px;">Stress triggers</div>
           <div class="chips" id="trig-chips">
             <div class="chip" onclick="togChip(this,'work')">Work / deadlines</div>
             <div class="chip" onclick="togChip(this,'social')">Social tension</div>
@@ -540,7 +989,7 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
             <div class="chip" onclick="togChip(this,'finances')">Financial worry</div>
             <div class="chip" onclick="togChip(this,'health')">Health concern</div>
           </div>
-          <div style="font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.07em;margin:14px 0 8px;">Physical sensations</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 9px;">Physical sensations</div>
           <div class="chips" id="sym-chips">
             <div class="chip" onclick="togSym(this,'tension')">Muscle tension</div>
             <div class="chip" onclick="togSym(this,'heartrace')">Racing heart</div>
@@ -553,11 +1002,11 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
         <div class="btn-row"><button class="btn-back" onclick="toQ(4)">←</button><button class="btn-next" onclick="toQ(6)">Continue</button></div>
       </div>
 
-      <!-- Q6 last meal -->
+      <!-- Q6: Last meal -->
       <div id="q6" class="qscreen">
-        <div class="q-eyebrow">Question 6 of 6</div>
+        <div class="q-label">Question 6 of 7</div>
         <div class="q-title">When did you last eat a full meal?</div>
-        <div class="q-sub">This helps separate genuine hunger from a cortisol-driven craving. Honest answers give better nudges.</div>
+        <div class="q-sub">This separates genuine hunger from a cortisol-driven craving. Honest answers give better nudges.</div>
         <div class="acard">
           <div class="radios" id="meal-grp">
             <div class="ritem" onclick="pickRadio('meal-grp',this,'recent')"><div class="rdot"></div><span class="rlabel">Within the last 2 hours</span></div>
@@ -566,17 +1015,63 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
             <div class="ritem" onclick="pickRadio('meal-grp',this,'skip')"><div class="rdot"></div><span class="rlabel">I skipped a meal today</span></div>
           </div>
         </div>
-        <div class="btn-row"><button class="btn-back" onclick="toQ(5)">←</button><button class="btn-next" id="q6n" onclick="showResult()" disabled>See my nudge →</button></div>
+        <div class="btn-row"><button class="btn-back" onclick="toQ(5)">←</button><button class="btn-next" id="q6n" onclick="toQ(7)" disabled>Continue</button></div>
+      </div>
+
+      <!-- Q7: Body data (optional) -->
+      <div id="q7" class="qscreen">
+        <div class="q-label">Question 7 of 7 — Optional</div>
+        <div class="q-title">Tell us a bit about your body</div>
+        <div class="q-sub">This lets us assess your metabolic risk more accurately. All fields are completely optional — skip any you prefer not to share.</div>
+        <div class="acard">
+          <div class="body-row">
+            <div class="field-group">
+              <label class="field-label">Weight</label>
+              <input class="field-input" id="bd-weight" type="number" placeholder="e.g. 70" min="30" max="300"/>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Weight unit</label>
+              <select class="select-input" id="bd-weight-unit">
+                <option value="kg">kg</option>
+                <option value="lbs">lbs</option>
+              </select>
+            </div>
+          </div>
+          <div class="body-row">
+            <div class="field-group">
+              <label class="field-label">Height</label>
+              <input class="field-input" id="bd-height" type="number" placeholder="e.g. 170" min="100" max="250"/>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Height unit</label>
+              <select class="select-input" id="bd-height-unit">
+                <option value="cm">cm</option>
+                <option value="in">inches</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group" style="margin-bottom:0;">
+            <label class="field-label">Biological sex</label>
+            <select class="select-input" id="bd-sex" style="max-width:240px;">
+              <option value="">Prefer not to say</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <p class="skip-note">All fields optional. Your data is never stored or sent anywhere.</p>
+        </div>
+        <div class="btn-row"><button class="btn-back" onclick="toQ(6)">←</button><button class="btn-next" onclick="showResult()">See my results →</button></div>
       </div>
 
       <!-- RESULT -->
       <div id="rscreen" class="rscreen">
-        <div id="score-row" class="score-row"></div>
+        <div id="score-row" class="score-strip"></div>
         <div id="rbanner"></div>
-        <div id="rsci"></div>
+        <div id="rbmi"></div>
+        <div id="rmechanism"></div>
         <div id="ractions"></div>
         <div class="outcome-card">
-          <div class="oc-lbl">Did this help?</div>
+          <div class="oc-lbl">Did this nudge help?</div>
           <div class="oc-btns">
             <button class="oc-btn" onclick="logOut('Resisted urge')">Resisted urge</button>
             <button class="oc-btn" onclick="logOut('Ate mindfully')">Ate mindfully</button>
@@ -596,8 +1091,8 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
       </div>
       <div class="bar-section">
         <div class="acard">
-          <div class="q-eyebrow" style="margin-bottom:10px;">Top stress triggers</div>
-          <div class="brow"><span class="blbl">Work</span><div class="btrack"><div class="bfill" id="bw" style="width:0%;background:linear-gradient(90deg,var(--coral),var(--amber));"></div></div><span class="bcnt" id="cw">0</span></div>
+          <div class="q-label" style="margin-bottom:12px;">Top stress triggers</div>
+          <div class="brow"><span class="blbl">Work</span><div class="btrack"><div class="bfill" id="bw" style="width:0%;background:linear-gradient(90deg,var(--orange),var(--amber));"></div></div><span class="bcnt" id="cw">0</span></div>
           <div class="brow"><span class="blbl">Social</span><div class="btrack"><div class="bfill" id="bs" style="width:0%;background:linear-gradient(90deg,#f97316,#fb923c);"></div></div><span class="bcnt" id="cs">0</span></div>
           <div class="brow"><span class="blbl">Fatigue</span><div class="btrack"><div class="bfill" id="bt" style="width:0%;background:linear-gradient(90deg,#fb7185,#fda4af);"></div></div><span class="bcnt" id="ct">0</span></div>
           <div class="brow"><span class="blbl">Boredom</span><div class="btrack"><div class="bfill" id="bb" style="width:0%;background:linear-gradient(90deg,var(--amber),#fcd34d);"></div></div><span class="bcnt" id="cb">0</span></div>
@@ -606,7 +1101,7 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
       </div>
       <div class="log-list">
         <div class="acard">
-          <div class="q-eyebrow" style="margin-bottom:8px;">Recent activity</div>
+          <div class="q-label" style="margin-bottom:10px;">Recent activity</div>
           <div id="log-entries"><div class="log-empty">No check-ins yet. Start your first one above.</div></div>
         </div>
       </div>
@@ -615,52 +1110,54 @@ body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:var(--surf
 </div>
 
 <script>
-/* ── state ── */
-let sStress=null,sMood=null,sSleep=null,sMeal=null,curQ=1;
+// STATE
+let sStress=null, sMood=null, sSleep=null, sMeal=null, curQ=1;
 const sTriggers=new Set(), sSymptoms=new Set();
 const logData=[], trigCounts={work:0,social:0,tired:0,bored:0,finances:0};
 let resistedCnt=0;
 
-/* ── page nav ── */
+// PAGE NAV
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  document.querySelectorAll('.nav-link').forEach((l,i)=>l.classList.toggle('active',['about','benefits','app'][i]===id));
+  document.querySelectorAll('.nav-link').forEach((l,i)=>
+    l.classList.toggle('active',['about','benefits','app'][i]===id));
   window.scrollTo(0,0);
 }
 
-/* ── sub tab ── */
+// SUB TAB
 function showSubTab(id){
   ['checkin','log'].forEach((t,i)=>{
     document.getElementById('sub-'+t).classList.toggle('active',t===id);
     document.querySelectorAll('.sub-tab')[i].classList.toggle('active',t===id);
   });
-  if(id==='log')renderLog();
+  if(id==='log') renderLog();
 }
 
-/* ── question nav ── */
+// QUESTION NAV
 function toQ(n){
   document.getElementById('q'+curQ).classList.remove('active');
   document.getElementById('q'+n).classList.add('active');
   curQ=n;
-  for(let i=1;i<=6;i++){
+  const total=7;
+  for(let i=1;i<=total;i++){
     const s=document.getElementById('ps'+i);
     s.classList.remove('done','cur');
-    if(i<n)s.classList.add('done');
-    else if(i===n)s.classList.add('cur');
+    if(i<n) s.classList.add('done');
+    else if(i===n) s.classList.add('cur');
   }
-  document.getElementById('prog-txt').textContent='Step '+n+' of 6';
+  document.getElementById('prog-txt').textContent='Step '+n+' of '+total;
   window.scrollTo(0,0);
 }
 
-/* ── inputs ── */
+// INPUTS
 function pickStress(v){
   sStress=v;
   document.querySelectorAll('.stile').forEach(t=>t.className='stile');
-  document.querySelectorAll('.stile')[v-1].classList.add(v<=3?'sl':v<=6?'sm':'sh');
+  const cls = v<=3?'sl': v<=6?'sm':'sh';
+  document.querySelectorAll('.stile')[v-1].classList.add(cls);
   document.getElementById('q1n').disabled=false;
 }
-
 function pickRadio(gid,el,val){
   document.querySelectorAll('#'+gid+' .ritem').forEach(r=>r.classList.remove('on'));
   el.classList.add('on');
@@ -668,7 +1165,6 @@ function pickRadio(gid,el,val){
   if(gid==='sleep-grp'){sSleep=val;document.getElementById('q4n').disabled=false;}
   if(gid==='meal-grp'){sMeal=val;document.getElementById('q6n').disabled=false;}
 }
-
 function togChip(el,val){
   if(sTriggers.has(val)){sTriggers.delete(val);el.classList.remove('on');}
   else{sTriggers.add(val);el.classList.add('on');}
@@ -678,80 +1174,254 @@ function togSym(el,val){
   else{sSymptoms.add(val);el.classList.add('on');}
 }
 
-/* ── result content ── */
-const content={
+// BMI CALC
+function calcBMI(){
+  const w=parseFloat(document.getElementById('bd-weight').value);
+  const h=parseFloat(document.getElementById('bd-height').value);
+  const wu=document.getElementById('bd-weight-unit').value;
+  const hu=document.getElementById('bd-height-unit').value;
+  if(!w||!h) return null;
+  let wKg = wu==='lbs' ? w*0.4536 : w;
+  let hM  = hu==='in'  ? h*0.0254 : h/100;
+  if(hM<=0) return null;
+  return +(wKg/(hM*hM)).toFixed(1);
+}
+function getBMITier(bmi){
+  if(bmi===null) return null;
+  if(bmi<18.5) return 'under';
+  if(bmi<25)   return 'normal';
+  if(bmi<30)   return 'over';
+  return 'obese';
+}
+function getBMILabel(bmi, tier){
+  const labels={under:'Underweight',normal:'Healthy weight',over:'Overweight',obese:'Obese'};
+  return 'BMI '+bmi+' ('+labels[tier]+')';
+}
+
+// LEVEL
+function getLevel(s){ return s<=3?'low': s<=6?'med':'high'; }
+
+// MECHANISM CHAINS BY LEVEL
+const mechanisms = {
   low:{
-    label:'Low Stress',
-    title:"You're in a good place — eat with care and intention",
-    body:"Right now, your cortisol is likely within a healthy range. Any hunger you're feeling is probably genuine — your leptin is working, your ghrelin isn't artificially elevated, and your brain's reward system isn't primed for overconsumption. This is actually a beautiful moment to eat, if you're hungry.",
-    science:"At low stress, your HPA axis is quiet. Leptin signals satiety normally to the hypothalamus, ghrelin stays appropriately suppressed after meals, and insulin sensitivity is at its peak. Your prefrontal cortex has full access — you're capable of making choices that genuinely serve you.",
-    base:["Eat slowly and without screens to activate the cephalic phase of digestion — your body needs to 'see and smell' food to prime optimal digestion","Choose whole foods: fibre, protein, and healthy fats stabilise blood glucose and keep insulin sensitivity strong","Try a simple body scan before eating — notice whether your hunger feels physical (stomach) or emotional (head/chest). It matters."],
-    sleep_poor:["Even at low stress, one night of poor sleep raises ghrelin noticeably — a protein-rich snack will blunt hunger more effectively than carbs right now"],
-    meal_skip:["Your hunger is genuine after missing a meal — honour it with something nourishing rather than convenient"]
+    steps:[
+      {label:'Stimulus',text:'<strong>Mild or no active stressor</strong> — your brain is not registering a significant threat.'},
+      {label:'HPA Response',text:'<strong>HPA axis is quiet.</strong> Cortisol remains within its normal diurnal rhythm. The hypothalamus is not triggering sustained CRH release.'},
+      {label:'Hormonal State',text:'<strong>Leptin is functioning normally</strong> — your satiety signal is intact. Ghrelin is appropriately suppressed if you\'ve eaten recently. Insulin sensitivity is at its daily peak.'},
+      {label:'Brain State',text:'<strong>Prefrontal cortex has full access.</strong> The limbic system is not dominating. You are capable of deliberate, values-aligned food choices.'},
+      {label:'Outcome',text:'Any hunger you feel is most likely <strong>genuine physiological hunger</strong>, not a stress-driven craving. This is the best possible state in which to eat.'},
+    ],
+    sources:[
+      {label:'Cortisol & HPA axis (NIH)',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4214609/'},
+      {label:'Leptin signalling review',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3428710/'},
+    ]
   },
   med:{
-    label:'Moderate Stress',
-    title:"Your hormones are shifting — this may not be real hunger",
-    body:"At this level of stress, your HPA axis is active. Cortisol has started to climb, and with it, ghrelin is rising — creating a sense of hunger that may not accurately reflect your body's actual energy needs. The urge to eat is real. But where it's coming from is your stress response, not your stomach.",
-    science:"Moderate cortisol elevation suppresses leptin signalling by roughly 15–30%, while ghrelin rises proportionally. Your prefrontal cortex — the part of your brain that makes considered decisions — is also mildly impaired under this level of stress, making impulsive food choices significantly more likely than usual.",
-    base:["Try box breathing before deciding anything: 4s in, 4s hold, 4s out, 4s hold. Four rounds activates your parasympathetic nervous system and reduces cortisol measurably","If you do eat, choose protein first — it suppresses ghrelin more effectively and for longer than carbohydrates or fat","Write down what's stressing you, even in a single sentence. Externalising a stressor reduces its hold on your HPA axis","Give yourself a 10-minute buffer before eating. Craving spikes driven by cortisol typically peak and subside within 90 seconds."],
-    sleep_poor:["Poor sleep compounds ghrelin elevation significantly today — consider a brief rest instead of a snack if that's possible"],
-    physical:["Physical symptoms indicate real sympathetic nervous system activation — cold water on your wrists or face will trigger a vagal response and take the edge off before you eat"]
+    steps:[
+      {label:'Stimulus',text:'<strong>Moderate stressor detected</strong> — work pressure, social tension, fatigue, or a combination is activating your threat-detection system.'},
+      {label:'HPA Response',text:'<strong>HPA axis is moderately active.</strong> The hypothalamus releases CRH, triggering ACTH from the pituitary, which prompts the adrenal cortex to release cortisol into the bloodstream.'},
+      {label:'Hormonal Shift',text:'<strong>Cortisol is elevating.</strong> Leptin signalling to the hypothalamus is suppressed by 15–30%, blunting your satiety signal. Ghrelin begins to rise — producing a hunger sensation that does not reflect actual energy deficit.'},
+      {label:'Brain Impact',text:'<strong>Prefrontal cortex function is mildly impaired.</strong> The dopamine system is primed — your brain is now more likely to seek reward from high-sugar, high-fat foods. Impulsive food choices are significantly more likely than at baseline.'},
+      {label:'If You Eat Now',text:'You\'ll likely consume more than your body needs, and choose foods that spike glucose. This starts the insulin–cortisol feedback loop, which <strong>elevates baseline stress over time.</strong>'},
+    ],
+    sources:[
+      {label:'Cortisol & appetite (NIH)',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4214609/'},
+      {label:'Ghrelin & stress response',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3428710/'},
+      {label:'Dopamine & reward pathways',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2732004/'},
+    ]
   },
   high:{
-    label:'High Stress',
-    title:"Cortisol is in the driver's seat right now — pause before you act",
-    body:"Your HPA axis is highly activated. Cortisol is mobilising your blood glucose, sharply suppressing leptin, and driving ghrelin to elevated levels. What feels like intense hunger right now is largely a neurochemical response to stress — your brain is seeking a dopamine hit to quiet the threat signal. Eating high-sugar or high-fat food will provide temporary relief but will deepen the stress–eating loop long-term.",
-    science:"At high cortisol, leptin signalling to the hypothalamus is significantly impaired — your primary satiety brake is essentially offline. Ghrelin at this level directly activates the nucleus accumbens, producing a dopamine anticipation signal that closely resembles craving states seen in habitual compulsive behaviour. Repeated activation of this loop can make the pattern increasingly automatic over time.",
-    base:["The craving has a ceiling: it will peak and pass within 90 seconds if you don't act on it. Set a timer on your phone and breathe","Cold water — on your face, wrists, or the back of your neck — triggers the mammalian dive reflex and directly dampens cortisol output via the vagus nerve","Reach out to someone. A text, a call, even just being in the same room as another person releases oxytocin, which actively inhibits HPA axis activity","If you need to eat, protect your insulin response: nuts, raw vegetables, a boiled egg, or Greek yogurt are all solid choices that won't spike glucose","Say your stress out loud: 'I am stressed about X.' Naming the feeling activates the prefrontal cortex and reduces amygdala reactivity — it actually works."],
-    sleep_poor:["Sleep debt severely amplifies your stress response today — your ghrelin could be 2–3× its usual baseline. Prioritising rest tonight matters more than any single food choice"],
-    physical:["Multiple physical symptoms indicate a full sympathetic stress response. Try 5 minutes of slow diaphragmatic breathing lying down — this is the fastest path to parasympathetic recovery"],
-    meal_skip:["You have both real hunger and a stress response running simultaneously — this is genuinely high risk for overconsumption. Eat something small and protein-rich now, intentionally, rather than waiting until the urge overtakes you"]
+    steps:[
+      {label:'Stimulus',text:'<strong>Significant stressor is active.</strong> Your amygdala has flagged a high-threat situation. The fear/stress network is dominant.'},
+      {label:'HPA Axis Activation',text:'<strong>Sustained HPA axis firing.</strong> CRH → ACTH → cortisol cascade is fully engaged. Cortisol is mobilising glucose from the liver, breaking down muscle protein, and promoting visceral fat deposition.'},
+      {label:'Hunger Hormones',text:'<strong>Leptin is significantly suppressed</strong> — your satiety brake is essentially offline. Ghrelin is sharply elevated, directly stimulating the nucleus accumbens and producing a dopamine anticipation signal that closely resembles compulsive craving states.'},
+      {label:'Prefrontal Shutdown',text:'<strong>Your executive function is compromised.</strong> The prefrontal cortex — the part of your brain that weighs consequences — is losing the battle to limbic impulse. This is not weakness; it is the predictable neuroscience of acute stress.'},
+      {label:'If You Eat Now',text:'The dopamine hit provides 60–90 seconds of relief. Then cortisol rebounds. Each repetition of this cycle <strong>deepens the stress-eating neural groove</strong> and raises your risk for insulin resistance and metabolic syndrome over time.'},
+    ],
+    sources:[
+      {label:'HPA axis & cortisol (NIH)',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4214609/'},
+      {label:'Ghrelin & nucleus accumbens',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3428710/'},
+      {label:'Stress & metabolic syndrome',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5958156/'},
+      {label:'Dopamine & stress eating',url:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2732004/'},
+    ]
   }
 };
 
-function getLevel(s){return s<=3?'low':s<=6?'med':'high';}
+// CONTENT
+const content={
+  low:{
+    label:'Low Stress',
+    title:'You\'re in a good place — eat with care and intention',
+    body:'Your cortisol is likely within its healthy range right now. Any hunger you\'re feeling is probably genuine — your leptin is working, ghrelin isn\'t artificially elevated, and your brain\'s reward system isn\'t primed for overconsumption. This is actually a good moment to eat, if you\'re hungry.',
+    base:[
+      'Eat slowly and without screens — your body needs to "see and smell" food to prime optimal digestion through the cephalic phase',
+      'Choose whole foods with protein, fibre, and healthy fats to keep insulin sensitivity strong and blood glucose stable',
+      'Try a brief body scan before eating — notice whether the hunger is physical (stomach) or emotional (chest/head). The distinction matters for breaking long-term patterns',
+    ],
+    sleep_poor:['Even at low stress, one night of poor sleep measurably raises ghrelin — a protein-rich snack (eggs, Greek yogurt, nuts) will blunt hunger more effectively than carbohydrates right now'],
+    meal_skip:['Your hunger is genuine after missing a meal — honour it with something nourishing rather than convenient'],
+  },
+  med:{
+    label:'Moderate Stress',
+    title:'Your hormones are shifting — this may not be real hunger',
+    body:'At this stress level, your HPA axis is active. Cortisol has started climbing, and with it, ghrelin is rising — creating a sense of hunger that may not reflect your body\'s actual energy needs. The urge to eat is real. But where it\'s coming from is your stress response, not your stomach.',
+    base:[
+      'Try box breathing before acting: 4s inhale, 4s hold, 4s exhale, 4s hold. Four rounds activates your parasympathetic nervous system and measurably reduces cortisol',
+      'If you do eat, choose protein first — it suppresses ghrelin more effectively and for longer than carbohydrates or fat, without spiking glucose',
+      'Write down what\'s stressing you in one sentence — externalising a stressor activates the prefrontal cortex and reduces amygdala reactivity. Research shows this actually works',
+      'Give yourself a 10-minute buffer. Cortisol-driven craving spikes typically peak and begin to subside within 90 seconds of onset',
+    ],
+    sleep_poor:['Poor sleep compounds ghrelin elevation significantly today — consider a brief rest over a snack if possible; even 20 minutes of horizontal rest reduces cortisol'],
+    physical:['Physical symptoms (racing heart, tension, shallow breathing) indicate active sympathetic nervous system engagement — cold water on your wrists or face triggers a vagal response that physically takes the edge off before you eat'],
+  },
+  high:{
+    label:'High Stress',
+    title:'Cortisol is driving right now — pause before you act',
+    body:'Your HPA axis is highly activated. Cortisol is mobilising blood glucose, sharply suppressing leptin, and driving ghrelin to elevated levels. What feels like intense hunger is largely a neurochemical stress response — your brain is seeking a dopamine hit to quiet the threat signal. Acting on it now reinforces the loop.',
+    base:[
+      'The craving has a biological ceiling — it will peak and pass within 90 seconds if you don\'t act on it. Set a timer and breathe through it',
+      'Cold water on your face, wrists, or the back of your neck triggers the mammalian dive reflex — this directly dampens cortisol output via the vagus nerve',
+      'Reach out to someone. Even a brief text or being in the same room as another person releases oxytocin, which actively inhibits HPA axis activity',
+      'If you need to eat, protect your insulin response — choose nuts, raw vegetables, a boiled egg, or Greek yogurt rather than anything high in refined sugar',
+      'Name the emotion out loud: "I am stressed about X." Research shows that labelling an emotion activates the prefrontal cortex and reduces amygdala reactivity — it actually changes the hormonal response',
+    ],
+    sleep_poor:['Sleep debt severely amplifies your stress response — your ghrelin may be 2–3× its normal baseline today. Prioritising rest tonight will matter more than any single food choice you make right now'],
+    physical:['Multiple physical symptoms indicate a full sympathetic stress response. Lie down and try 5 minutes of diaphragmatic breathing — this is the fastest documented path to parasympathetic recovery'],
+    meal_skip:['You have both real hunger and a stress response running simultaneously — this is genuinely high risk for overconsumption. Eat something small and protein-rich now, intentionally, rather than waiting until the urge becomes overwhelming'],
+  }
+};
 
 function showResult(){
-  const hunger=parseInt(document.getElementById('hsl').value);
-  const lv=getLevel(sStress);
-  const c=content[lv];
-  const trigs=[...sTriggers], syms=[...sSymptoms];
+  const hunger = parseInt(document.getElementById('hsl').value);
+  const bmi    = calcBMI();
+  const bmiTier= getBMITier(bmi);
+  const sex    = document.getElementById('bd-sex').value;
+  const lv     = getLevel(sStress);
+  const c      = content[lv];
+  const trigs  = [...sTriggers];
+  const syms   = [...sSymptoms];
 
+  // Score strip
   const moodLabel={calm:'Calm',anxious:'Anxious',irritable:'Irritable',low:'Low',numb:'Numb'}[sMood]||'—';
   const sleepLabel={great:'Good',ok:'Fair',poor:'Poor',na:'—'}[sSleep]||'—';
-  const mealLabel={recent:'<2hr',moderate:'2–5hr',long:'5hr+',skip:'Skipped'}[sMeal]||'—';
-
+  const mealLabel={recent:'<2 hrs',moderate:'2–5 hrs',long:'5+ hrs',skip:'Skipped'}[sMeal]||'—';
   document.getElementById('score-row').innerHTML=[
-    ['Stress',sStress+'/10'],['Hunger',hunger+'/10'],
-    ['Mood',moodLabel],['Sleep',sleepLabel],['Last meal',mealLabel]
+    ['Stress',sStress+'/10'],
+    ['Hunger',hunger+'/10'],
+    ['Mood',moodLabel],
+    ['Sleep',sleepLabel],
+    ['Last meal',mealLabel],
   ].map(([l,v])=>`<div class="sc-chip"><div class="sc-lbl">${l}</div><div class="sc-val">${v}</div></div>`).join('');
 
-  document.getElementById('rbanner').innerHTML=`<div class="result-banner ${lv}"><div class="rb-lbl">${c.label}</div><div class="rb-title">${c.title}</div><div class="rb-body">${c.body}</div></div>`;
-  document.getElementById('rsci').innerHTML=`<div class="sci-note"><div class="sci-note-lbl">🔬 The science behind this</div><div class="sci-note-text">${c.science}</div></div>`;
+  // Result banner — personalise based on sex if available
+  let bodyText = c.body;
+  if(sex==='female' && lv!=='low'){
+    bodyText += ' Note: fluctuating oestrogen during luteal phase can amplify cortisol sensitivity and intensify cravings — especially in the week before menstruation.';
+  }
+  document.getElementById('rbanner').innerHTML=`
+    <div class="result-banner ${lv}">
+      <div class="rb-badge">${c.label}</div>
+      <div class="rb-title">${c.title}</div>
+      <div class="rb-body">${bodyText}</div>
+    </div>`;
 
+  // BMI callout
+  let bmiHtml='';
+  if(bmi!==null){
+    const riskMsg = {
+      under: 'Underweight individuals can still experience cortisol-driven eating — and may have reduced lean mass that lowers metabolic reserve during stress.',
+      normal:'A healthy BMI reduces your baseline metabolic risk, but chronic stress can still drive insulin resistance independently of body weight.',
+      over:  'An elevated BMI increases your baseline risk for cortisol-driven insulin resistance. Repeated stress-eating episodes compound this risk. Breaking the cycle now has measurable long-term benefits.',
+      obese: 'Elevated BMI combined with high cortisol significantly increases your risk of metabolic syndrome. Your body\'s insulin response is under pressure from both directions. Interrupting this craving now is especially important for your long-term metabolic health.'
+    }[bmiTier];
+    const tierColour = {under:'#3b82f6',normal:'#059669',over:'#d97706',obese:'#dc2626'}[bmiTier];
+    bmiHtml=`<div class="bmi-callout">
+      <div class="bmi-icon">📊</div>
+      <div class="bmi-text"><strong>${getBMILabel(bmi,bmiTier)}</strong> — ${riskMsg}</div>
+    </div>`;
+  }
+  document.getElementById('rbmi').innerHTML=bmiHtml;
+
+  // Mechanism chain panel
+  const m = mechanisms[lv];
+  const stepsHtml = m.steps.map((s,i)=>`
+    <div class="chain-step">
+      <div class="chain-num">${i+1}</div>
+      <div class="chain-content">
+        <div class="chain-label">${s.label}</div>
+        <div class="chain-text">${s.text}</div>
+      </div>
+    </div>`).join('');
+  const linksHtml = m.sources.map(s=>
+    `<a class="sci-source-link" href="${s.url}" target="_blank" rel="noopener">↗ ${s.label}</a>`
+  ).join('');
+  document.getElementById('rmechanism').innerHTML=`
+    <div class="mechanism-panel" id="mech-panel">
+      <button class="mechanism-toggle" onclick="toggleMech()">
+        <div class="mechanism-toggle-left">
+          <span class="mechanism-toggle-icon">🔬</span>
+          <div>
+            <div class="mechanism-toggle-text">What's happening in your body?</div>
+            <div class="mechanism-toggle-sub">Tap to see the hormonal chain behind this result</div>
+          </div>
+        </div>
+        <span class="mechanism-chevron">▾</span>
+      </button>
+      <div class="mechanism-body">
+        <div class="chain">${stepsHtml}</div>
+        <div class="sci-source">
+          <div class="sci-source-label">Primary sources</div>
+          <div class="sci-source-links">${linksHtml}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Actions — build contextual list
   let actions=[...c.base];
-  if(sSleep==='poor'&&c.sleep_poor)actions.push(...c.sleep_poor);
-  if(syms.length>=2&&c.physical)actions.push(...c.physical);
-  if(sMeal==='skip'&&c.meal_skip)actions.push(...c.meal_skip);
+  if(sSleep==='poor' && c.sleep_poor) actions.push(...c.sleep_poor);
+  if(syms.length>=2 && c.physical)    actions.push(...c.physical);
+  if(sMeal==='skip' && c.meal_skip)   actions.push(...c.meal_skip);
+  // BMI-based extra action
+  if(bmiTier==='obese' || bmiTier==='over'){
+    actions.push('Given your metabolic profile, replacing one high-sugar stress snack per day with a protein-fibre combination (e.g. apple + almond butter) can reduce post-meal cortisol spikes over time');
+  }
+  document.getElementById('ractions').innerHTML=`
+    <div class="action-card">
+      <div class="action-lbl">Your personalised actions</div>
+      <ul class="action-list">
+        ${actions.map(a=>`<li><span class="action-arrow">→</span><span>${a}</span></li>`).join('')}
+      </ul>
+    </div>`;
 
-  document.getElementById('ractions').innerHTML=`<div class="action-card"><div class="action-lbl">Recommended actions</div><ul class="action-list">${actions.map(a=>`<li><span class="a-arrow">→</span>${a}</li>`).join('')}</ul></div>`;
-
-  for(let i=1;i<=6;i++)document.getElementById('q'+i).classList.remove('active');
+  // Show result, hide questions
+  for(let i=1;i<=7;i++) document.getElementById('q'+i).classList.remove('active');
   document.getElementById('rscreen').classList.add('active');
-  for(let i=1;i<=6;i++){document.getElementById('ps'+i).classList.remove('done','cur');document.getElementById('ps'+i).classList.add('done');}
+  for(let i=1;i<=7;i++){
+    document.getElementById('ps'+i).classList.remove('done','cur');
+    document.getElementById('ps'+i).classList.add('done');
+  }
   document.getElementById('prog-txt').textContent='Complete ✓';
 
+  // Log entry
   const now=new Date();
   const t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  logData.unshift({t,stress:sStress,level:lv,hunger,mood:sMood,sleep:sSleep,trigs,meal:sMeal,outcome:null});
-  trigs.forEach(k=>{if(trigCounts[k]!==undefined)trigCounts[k]++;});
+  logData.unshift({t,stress:sStress,level:lv,hunger,mood:sMood,sleep:sSleep,trigs,meal:sMeal,bmi,outcome:null});
+  trigs.forEach(k=>{if(trigCounts[k]!==undefined) trigCounts[k]++;});
   window.scrollTo(0,0);
 }
 
+function toggleMech(){
+  const p=document.getElementById('mech-panel');
+  if(p) p.classList.toggle('open');
+}
+
 function logOut(out){
-  if(logData.length&&logData[0].outcome===null){logData[0].outcome=out;if(out==='Resisted urge')resistedCnt++;}
-  resetAll();showSubTab('log');
+  if(logData.length&&logData[0].outcome===null){
+    logData[0].outcome=out;
+    if(out==='Resisted urge') resistedCnt++;
+  }
+  resetAll();
+  showSubTab('log');
 }
 
 function resetAll(){
@@ -759,29 +1429,48 @@ function resetAll(){
   sTriggers.clear();sSymptoms.clear();
   document.querySelectorAll('.stile').forEach(t=>t.className='stile');
   ['q1n','q3n','q4n','q6n'].forEach(id=>document.getElementById(id).disabled=true);
-  document.getElementById('hsl').value=5;document.getElementById('hval').textContent='5';
+  document.getElementById('hsl').value=5;
+  document.getElementById('hval').textContent='5';
   document.querySelectorAll('.ritem').forEach(r=>r.classList.remove('on'));
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
   document.getElementById('rscreen').classList.remove('active');
-  for(let i=1;i<=6;i++){document.getElementById('q'+i).classList.remove('active');document.getElementById('ps'+i).className='prog-seg';}
+  document.getElementById('bd-weight').value='';
+  document.getElementById('bd-height').value='';
+  document.getElementById('bd-sex').value='';
+  for(let i=1;i<=7;i++){
+    document.getElementById('q'+i).classList.remove('active');
+    document.getElementById('ps'+i).className='prog-seg';
+  }
   document.getElementById('q1').classList.add('active');
   document.getElementById('ps1').classList.add('cur');
-  document.getElementById('prog-txt').textContent='Step 1 of 6';
+  document.getElementById('prog-txt').textContent='Step 1 of 7';
   window.scrollTo(0,0);
 }
 
 function renderLog(){
   document.getElementById('mt').textContent=logData.length;
   document.getElementById('mr').textContent=resistedCnt;
-  if(logData.length){const avg=(logData.reduce((a,b)=>a+b.stress,0)/logData.length).toFixed(1);document.getElementById('ma').textContent=avg;}
+  if(logData.length){
+    const avg=(logData.reduce((a,b)=>a+b.stress,0)/logData.length).toFixed(1);
+    document.getElementById('ma').textContent=avg;
+  }
   const mx=Math.max(...Object.values(trigCounts),1);
   [['w','work'],['s','social'],['t','tired'],['b','bored'],['f','finances']].forEach(([k,key])=>{
     document.getElementById('b'+k).style.width=Math.round((trigCounts[key]/mx)*100)+'%';
     document.getElementById('c'+k).textContent=trigCounts[key];
   });
   const el=document.getElementById('log-entries');
-  if(!logData.length){el.innerHTML='<div class="log-empty">No check-ins yet. Start your first one above.</div>';return;}
-  el.innerHTML=logData.slice(0,10).map(e=>`<div class="log-row"><span class="log-time">${e.t}</span><span class="log-badge lb-${e.level}">${e.stress}/10</span><span class="log-tags">${e.trigs.length?e.trigs.join(', '):'General stress'}</span><span class="log-out">${e.outcome||'—'}</span></div>`).join('');
+  if(!logData.length){
+    el.innerHTML='<div class="log-empty">No check-ins yet. Start your first one above.</div>';
+    return;
+  }
+  el.innerHTML=logData.slice(0,10).map(e=>`
+    <div class="log-row">
+      <span class="log-time">${e.t}</span>
+      <span class="log-badge lb-${e.level}">${e.stress}/10</span>
+      <span class="log-tags">${e.trigs.length?e.trigs.join(', '):'General stress'}</span>
+      <span class="log-out">${e.outcome||'—'}</span>
+    </div>`).join('');
 }
 </script>
 </body>
